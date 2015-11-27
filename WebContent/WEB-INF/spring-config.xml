@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<beans:beans xmlns:security="http://www.springframework.org/schema/security"
+		   		 xmlns:beans="http://www.springframework.org/schema/beans"
+		   		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	       		 xmlns:util="http://www.springframework.org/schema/util"
+	       		 xmlns:faces="http://www.springframework.org/schema/faces"
+	       		 xmlns:context="http://www.springframework.org/schema/context"
+	       		 xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+						http://www.springframework.org/schema/security 
+						http://www.springframework.org/schema/security/spring-security-3.0.3.xsd
+						http://www.springframework.org/schema/context
+						http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+   <context:component-scan base-package="com.acnc.mm" />
+    
+
+	 <beans:bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<beans:property name="targetClass" value="org.springframework.security.core.context.SecurityContextHolder"/>
+		<beans:property name="targetMethod" value="setStrategyName"/>
+		<beans:property name="arguments">
+			<beans:list>
+				<beans:value>MODE_INHERITABLETHREADLOCAL</beans:value>
+			</beans:list>
+		</beans:property>
+	</beans:bean>  	
+
+
+	<beans:bean id="forbiddenAuthEntryPoint" class="org.springframework.security.web.authentication.Http403ForbiddenEntryPoint" /> 
+
+	<!-- Provides security method filtering -->
+	 <security:global-method-security secured-annotations="enabled" jsr250-annotations="enabled"  />
+
+	 <security:http auto-config="true" access-denied-page="/faces/login.xhtml">
+	 <security:form-login 
+			login-page="/faces/login.xhtml" 	
+			authentication-failure-url="/faces/login.xhtml?error" 
+			default-target-url="/faces/main.xhtml"
+			always-use-default-target='true' />	
+		<security:logout 
+		   logout-success-url="/faces/logout.xhtml" />
+
+		<security:session-management>
+		<security:concurrency-control max-sessions="10"/>
+		</security:session-management>
+
+		<!-- intercept patterns -->
+		<security:intercept-url pattern="/faces/main**" access="ROLE_ADMIN"/>
+		<security:intercept-url pattern="/faces/contracts**" access="ROLE_ADMIN"/>
+		<security:intercept-url pattern="/faces/buildresume**" access="ROLE_ADMIN"/>
+		<security:intercept-url pattern="/faces/jobs**" access="ROLE_ADMIN"/>
+		<security:intercept-url pattern="/faces/resume**" access="ROLE_ADMIN"/>
+		<security:intercept-url pattern="/faces/viewresume**" access="ROLE_ADMIN"/>
+		<security:intercept-url pattern="/faces/logout**" access="ROLE_ADMIN"/>
+		<security:intercept-url pattern="/faces/login**" access="ROLE_ANONYMOUS"/>
+		<security:intercept-url pattern="/faces/registrationPage**" access="ROLE_ANONYMOUS"/>
+
+
+		 <!-- Concurrent Sessions Settings --> 
+
+
+	 </security:http>
+
+
+	<!-- Authentication Manager -->		
+	<security:authentication-manager alias="authenticationManager" >
+          <security:authentication-provider >
+          <security:jdbc-user-service data-source-ref="dataSource"
+		  users-by-username-query=
+		    "select UserName,Password, Enabled from massEmail.user where UserName=?"
+		  authorities-by-username-query=
+		    "select Username, user_role from massEmail.user_roles where username=?" />  
+		     </security:authentication-provider>
+       </security:authentication-manager>
+
+	
+   <!--  Security Messages -->
+	<beans:bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource" >
+		<beans:property name="basename" value="org/springframework/security/messages"/>
+	</beans:bean>
+
+	<!-- Transaction Manager Info -->
+
+	<beans:bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" >
+		 <beans:property name="dataSource" ref="dataSource" /> 
+	</beans:bean>
+
+	<beans:bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean" >
+		<beans:property name="jndiName" value="/jdbc/threatDataSource" />
+		<beans:property name="resourceRef" value="true" />
+	</beans:bean>
+
+
+	<!-- Security bean definition -->
+	<beans:bean name="MessengerDAO" class="com.acnc.mm.dao.db.jdbc.MessengerDAOImpl" >
+		<beans:property name="threatDS" ref="dataSource" />
+		<beans:property name="transactionManager" ref="transactionManager" />
+	</beans:bean>
+
+
+	 <beans:bean class="com.acnc.mm.services.messenger.MessengerServiceImpl" name="messengerService" >
+		<beans:property name="messengerDAO" ref="MessengerDAO" />		
+	</beans:bean>
+
+	<context:component-scan base-package="com.acnc.mm.services.mail" />    
+    
+    <beans:bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <beans:property name="host" value="smtp.gmail.com"/>
+        <beans:property name="port" value="587"/>
+        
+        <beans:property name="username" value="acncserver@gmail.com"/>
+        <beans:property name="password" value="Wsxedc5678"/>
+        <beans:property name="javaMailProperties">
+            <beans:props>
+                <beans:prop key="mail.transport.protocol">smtp</beans:prop>
+                <beans:prop key="mail.smtp.auth">true</beans:prop>
+                <beans:prop key="mail.smtp.starttls.enable">true</beans:prop>
+                <beans:prop key="mail.debug">true</beans:prop>
+            </beans:props>
+        </beans:property>
+    </beans:bean>
+    
+    <beans:bean id="alertMailMessage" class="org.springframework.mail.SimpleMailMessage">
+        <beans:property name="from">            
+            <beans:value>kunta.little@acnc-md.com</beans:value>
+        </beans:property>
+        <beans:property name="to">            
+            <beans:value>Kunta.little@acnc-md.com</beans:value>
+        </beans:property> 
+        <beans:property name="subject" value="Alert - Exception occurred. Please investigate"/>
+    </beans:bean>
+    
+
+</beans:beans>	

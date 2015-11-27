@@ -1,0 +1,65 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+         xmlns:h="http://java.sun.com/jsf/html"
+         xmlns:f="http://java.sun.com/jsf/core"
+         xmlns:p="http://primefaces.org/ui">
+
+<body>
+
+<ui:composition>
+
+<f:view>
+	<h:form partialSubmit="true">
+	   <div class="navbar navbar-fixed-top">
+	     <div class="navbar-inner">
+			<div class="container">
+				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> 
+				<span class="icon-bar"></span> 
+				</a> 
+				
+				<a class="brand" href="/web_pos/faces/main.xhtml">TaskMessenger</a>
+				
+				
+				<div class="nav-collapse">
+					<ul class="nav">
+						<!-- <li class="#{view.viewId == '/main.xhtml' ? 'active' : ''}">
+						<a href="/TaskMessenger/faces/main.xhtml">Home</a></li>				
+						
+						<li class="#{view.viewId == '/jobs.xhtml' ? 'active' : ''}">
+						<a href="/TaskMessenger/faces/jobs.xhtml">Jobs</a></li>
+						
+						<li class="#{view.viewId == '/contracts.xhtml' ? 'active' : ''}">
+						<a href="/TaskMessenger/faces/contracts.xhtml">Contracts</a></li>
+						
+						<li class="#{view.viewId == '/buildresume.xhtml' ? 'active' : ''}">
+						<a href="/TaskMessenger/faces/buildresume.xhtml">Resume</a>
+						</li> -->
+						
+						<!-- <li class="#{view.viewId == '/admin.xhtml' ? 'active' : ''}">
+						<a href="/web_pos/faces/admin.xhtml">Administration</a></li> -->
+						
+						<!-- <li class="#{view.viewId == '/help.xhtml' ? 'active' : ''}">
+						<a href="/TaskMessenger/faces/help.xhtml">Help</a></li> -->
+					</ul>
+					<div class="nav-collapse pull-right">
+					<ul class ="nav">					 
+			       <h:outputText value="Username:" /> 
+			       <p:inputText id="user" value="#{TaskMessenger.userId}" required="true"/>
+			        <h:outputText value="Password:" /> 
+			        <p:password id="keyword" value="#{TaskMessenger.password}" required="true" />
+			         <p:commandButton value="Submit" actionListener="#{TaskMessenger.Login}" />			         
+			        </ul>
+					</div> 
+					
+					
+				</div>
+				<!--/.nav-collapse -->
+		</div>		
+	</div>
+	</div>
+	</h:form>
+	
+	</f:view>	
+	</ui:composition>
+	</body>
+</html>

@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>TaskMessenger Login</title>
+	<style>
+.error {
+	padding: 15px;
+	margin-bottom: 20px;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	color: #a94442;
+	background-color: #f2dede;
+	border-color: #ebccd1;
+}
+ 
+.msg {
+	padding: 15px;
+	margin-bottom: 20px;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	color: #31708f;
+	background-color: #d9edf7;
+	border-color: #bce8f1;
+}
+ 
+#login-box {
+	width: 500px;
+	padding: 20px;
+	margin: 100px auto;
+	background: #fff;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	border: 1px solid #000;
+}
+</style>
+</h:head>
+
+<h:body>
+       <h1 align="center">TaskMessenger logout</h1>
+	<h:form>
+	       
+	      
+		<div id="login-box" style="text-align:center;">
+		   
+		    
+		   <div class="msg"><h:messages /></div>
+			<h:panelGrid id="loginGrid" columns="2" cellpadding="4" style="margin:0 auto;" border= "0">
+			<h:outputText value="Username " />
+			<p:inputText value="#{loginBean.username}" />
+			<h:outputText value="Password " />
+			<p:password value="#{loginBean.password}" />
+			<!-- <h:messages id="error"/>	 -->		
+			<p:commandButton action="#{loginBean.login}" value="Submit"  ajax="false"/>
+			 
+			 
+		   </h:panelGrid>
+		</div>
+	</h:form>
+</h:body>
+</html>
+

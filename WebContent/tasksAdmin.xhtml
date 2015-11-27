@@ -1,0 +1,489 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+         xmlns:h="http://java.sun.com/jsf/html"
+         xmlns:f="http://java.sun.com/jsf/core"
+         xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/jsp/templates/template.xhtml">
+<ui:define name="content">
+<h:head>
+
+
+</h:head>
+<h:body>
+        
+
+ 
+ 
+ <!-- ***************************************************************SECTION SAVING NEW TASKS**************************************************-->
+ 
+ <p:dialog id="modalDialogTask" header="Assign Task" widgetVar="dlgTask" modal="true" resizable="false" appendToBody="true">  
+  <h:form id="formTask"> 
+
+  
+<p:dataTable id="saveTask" var="tkRecord" value="#{massMessenger.allAddedTaskInfo}" paginator="true" rows="5"
+rowKey="#{taskRecord.taskID}" > 
+
+
+
+<p:column styleClass="scrollableCell" headerText="First Name" sortBy="#{tkRecord.candidateFirstName}">
+<h:outputText value="#{tkRecord.candidateFirstName}"/>
+</p:column>
+
+<p:column styleClass="scrollableCell" headerText="Last Name" sortBy="#{tkRecord.candidateLastName}">
+<h:outputText value="#{tkRecord.candidateLastName}"/>
+</p:column>
+
+<p:column styleClass="scrollableCell" headerText="Job Title" sortBy="#{tkRecord.jobTitle}">
+<h:outputText value="#{tkRecord.jobTitle}"/>
+</p:column>
+
+<!-- <p:column styleClass="scrollableCell" headerText="Assigned By" sortBy="#{tkRecord.nameuser}">
+<h:outputText value="#{tkRecord.nameuser}"/>
+</p:column> -->
+
+<p:column styleClass="scrollableCell" headerText="Add Comments ?">
+<p:inputTextarea id="adminComments" value="#{massMessenger.adminComments}"/>
+</p:column>
+
+<p:column styleClass="scrollableCell" headerText="Candidate Resume">
+
+ <p:commandButton id="downloadButton2421" value="Download" ajax="false" icon="ui-icon-arrowthick-1-s" action="#{massMessenger.DownloadResumeBlob}">
+ 		<p:fileDownload value="#{massMessenger.file}" />
+ </p:commandButton>
+
+</p:column>
+
+<p:column styleClass="scrollableCell" headerText="Due Date">
+<p:outputLabel for="datetime" value="Datetime:" />
+        <p:calendar id="datetime" value="#{tkRecord.dueDate}" pattern="MM/dd/yyyy HH:mm:ss" />
+
+</p:column>
+
+<p:column styleClass="scrollableCell" headerText="How Urgent?">
+
+        <p:rating value="#{tkRecord.urgent}" stars="1"/>
+</p:column>
+
+
+
+<p:rowEditor />
+	<p:column headerText="Options">
+
+	<p:commandLink
+	action="#{massMessenger.removeAction4(tkRecord)}" value=" "
+	styleClass="ui-icon ui-icon-trash" update="saveTask"
+	ajax="true">
+	<f:setPropertyActionListener
+	target="#{massMessenger.selectedTask}" value="#{item}" />
+	</p:commandLink>
+
+	</p:column>
+
+
+	
+</p:dataTable>
+    <br></br>
+
+<p:panelGrid columns="2">
+<h:outputText value="Assign Task: " />
+      <p:commandButton id="TasksBtn8888" onstart="document.forms['searchForm'].submit()" value="Submit" action="#{massMessenger.saveTaskData}" ajax="true" process="@this" 
+      type="submit"/>
+
+</p:panelGrid>
+    
+
+</h:form>
+</p:dialog>
+ 
+ 
+ 
+ 
+    
+<!-- **************************************************************************************************************************************************** -->
+ 	
+ 	
+ 	
+ 
+<!-- ****************************************************************VIEW RESUME ********************************************************************************* -->
+
+<p:dialog id="modalDialogView" header="View Resume" widgetVar="dlgView" modal="true" resizable="false" appendToBody="true">  
+  <h:form id="formView"> 
+   <h:panelGrid id="display" cellpadding="4" style="margin:0 auto;">
+  
+ <!-- <h3>PDF</h3><object type="application/pdf" data="/massMessenger/doc.pdf?pfdrid_c=true" height="300px" width="100%">
+            Your browser can't display pdf, <a href="/massMessenger/doc.pdf">click</a> to download pdf instead.
+        </object>
+ -->
+
+<!-- <pe:documentViewer height="500" url="/sections/documentviewer/book.pdf"/>  --> 
+
+</h:panelGrid>
+</h:form>
+</p:dialog>
+
+
+
+
+
+<!-- *********************************************************************************************************************************************************** -->
+
+<!-- *******************************************************************CANCEL TASK********************************************************************** -->
+<p:dialog id="modalDialogCancel" header="Are You Sure You Want To Cancel This Task" widgetVar="dlgCancel" modal="true" resizable="false" appendToBody="true">  
+  <h:form id="formCancel"> 
+  
+ <h:panelGrid id="display"  columns="2" >
+ 
+   <h:outputText value="Task ID: " />
+  <h:outputText id="test954832" value="#{massMessenger.selectedTaskRecord.task_ID}" />
+
+    <h:outputText value="First Name: " />
+  <h:outputText id="test54781" value="#{massMessenger.selectedTaskRecord.candidateFirstName}" />
+
+
+<h:outputText value="Last Name: " />
+  <h:outputText id="te8233" value="#{massMessenger.selectedTaskRecord.candidateLastName}" />
+
+<h:outputText value="Job Position: " />
+  <h:outputText id="te8232" value="#{massMessenger.selectedTaskRecord.jobTitle}" />
+ 
+
+ <h:outputText value="Why are you canceling this task?"/>
+ <h:inputTextarea value="#{massMessenger.cancelComments}"  required="true"/>
+    
+
+  <p:commandButton id="CompeletedButton88" onstart="document.forms['searchForm'].submit()" value="Submit" action="#{massMessenger.CancelTask}" ajax="true" process="@this" 
+      type="submit" update=":formMain"/>
+
+   
+   
+
+</h:panelGrid>
+</h:form>
+</p:dialog>
+
+
+
+
+<!-- ***************************************************************************************************************************************************** -->
+
+<p:dialog id="modalDialogComment" header="Add A Comment To This Task" widgetVar="dlgComment" modal="true" resizable="false" appendToBody="true">  
+<h:form id="formComment1"> 
+
+<p:dataTable var="selected" value="#{massMessenger.allSelectedComments}"  rows="10" paginator="true">
+   
+ <p:column headerText="Task ID">
+        <h:outputText value="#{selected.task_ID}" />
+    </p:column>
+ 
+    <p:column headerText="Comment ID">
+        <h:outputText value="#{selected.idComments}" />
+    </p:column>
+ 
+    <p:column headerText="Comment">
+        <h:outputText value="#{selected.commentString}" />
+    </p:column>
+ 
+    <p:column headerText="Date">
+        <h:outputText value="#{selected.createUpdated}" />
+    </p:column>   
+    
+    <p:column headerText="Nameuser">
+		<h:outputText value="#{selected.idnameuser}"/>
+	 </p:column>	
+   
+   </p:dataTable>
+   <br/>
+
+   <div align="center">
+   <h:outputText value="What is your comment?"/>
+ <h:inputTextarea value="#{massMessenger.commentString}"  required="true"/>
+    
+    
+    <p:commandButton id="Com2137" onstart="document.forms['searchForm'].submit()" value="Submit" action="#{massMessenger.saveComment}" ajax="true" process="@this" 
+      type="submit"/>
+ 	</div>
+   
+   
+   
+</h:form>
+</p:dialog>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- This is where im trying to get the button to show up from ******************************************************** -->
+
+
+<h:form id="formMain">
+
+
+	<p:growl id="growl" showDetail="true" escape="true" /> 
+       
+
+
+<div align="center">
+         <p:tabView id="tabView" style="width:90%">
+
+
+
+
+
+
+<!-- ***************************************************** TAB FOR NEW TASKS **************************************************************** --> 
+
+ <p:tab title="Tasks">
+
+	
+	<p:panel header="Current Task Request" >
+          
+
+ <p:dataTable id="dtCandidate2015" var="candidate" value="#{massMessenger.allCandidateInfoPostedAll}" paginator="true" rows="5"
+rowKey="#{candidate.candinfo_id}" selection="#{massMessenger.allSelectedCandidateInfoTask}"> 
+
+<p:column selectionMode="multiple" style="width:20px"/>
+
+<p:column headerText="First Name" sortBy="#{candidate.candidateFirstName}">
+<h:outputText value="#{candidate.candinfoFirstName}"/>
+</p:column>
+
+<p:column headerText="Last Name" sortBy="#{candidate.candidateLastName}">
+<h:outputText value="#{candidate.candinfoLastName}"/>
+</p:column>
+
+<p:column headerText="Resume">
+<h:outputText value="#{candidate.candinfoResume}"/>
+</p:column>
+
+</p:dataTable>
+ 
+
+
+<br></br>
+
+
+  <p:dataTable  id="dtJob2015435786" var="job" value="#{massMessenger.allJobPostedExisting}" selection="#{massMessenger.selectedJobAll}" paginator="true" rows="5"
+rowKey="#{job.jobID}"> 
+
+<p:column selectionMode="single" style="width:10px" />
+
+
+<p:column headerText="Request Number" sortBy="#{job.jobRequest}">
+<h:outputText value="#{job.jobRequest}"/>
+</p:column>
+
+<p:column headerText="Title" sortBy="#{job.jobTitle}">
+<h:outputText value="#{job.jobTitle}"/>
+</p:column>
+
+<p:column headerText="Job Skill" sortBy="#{job.jobSkill}">
+<h:outputText value="#{job.jobSkill}"/>
+</p:column>
+
+<p:column headerText="Clearance" sortBy="#{job.jobClear}">
+<h:outputText value="#{job.jobClear}"/>
+</p:column>
+
+<p:column headerText="Contract Tile" sortBy="#{job.contractTitle}">
+<h:outputText value="#{job.contractTitle}"/>
+</p:column>
+
+<p:column headerText="Job Template" sortBy="#{job.jobTemplate}">
+<h:outputText value="#{job.jobTemplate}"/>
+</p:column>
+</p:dataTable>
+
+<br/>
+
+<p:panelGrid columns="6">
+<h:outputText value="Set Selection(s) to Pending State: " />
+       
+       <p:commandButton id="TaskBtn1" oncomplete="dlgTask.show()"  value="Save Task" action="#{massMessenger.addLinkedCanandJobsTask}" update=":formTask:saveTask" ajax="true" process="@form" type="submit"/>
+  
+</p:panelGrid>
+
+
+</p:panel>
+</p:tab>
+
+
+
+
+
+<!-- *****************************************************************************************************************************************************-->
+
+<p:tab title="Sent Task">
+
+
+
+<p:panel header="Assigned Task">
+
+
+<p:dataTable  id="SentTask2015" var="task" value="#{massMessenger.allTaskInfoPosted}"  selection="#{massMessenger.allSelectedTaskInfo}" paginator="true" rows="10" rowKey="#{task.task_ID}">
+
+<p:column headerText="First Name" sortBy="#{task.candidateFirstName}">
+<h:outputText value="#{task.candidateFirstName}"/>
+</p:column>
+
+<p:column headerText="Last Name" sortBy="#{task.candidateLastName}">
+<h:outputText value="#{task.candidateLastName}"/>
+</p:column>
+
+<p:column headerText="Position" sortBy="#{task.jobTitle}">
+<h:outputText value="#{task.jobTitle}"/>
+</p:column>
+
+<p:column headerText="Assigned To" sortBy="#{task.nameuser}">
+<h:outputText value="#{task.nameuser}"/>
+</p:column>
+
+<p:column headerText="Options">
+
+
+<p:commandLink  value="Add Comment" oncomplete="dlgComment.show()" >
+	<f:setPropertyActionListener value="#{task}" target="#{massMessenger.selectedTaskRecord}" /> 
+	</p:commandLink>
+
+<br/>
+
+
+<p:commandLink  value="Cancel Task" oncomplete="dlgCancel.show()" update=":formCancel:display">
+	<f:setPropertyActionListener value="#{task}" target="#{massMessenger.selectedTaskRecord}" /> 
+	</p:commandLink>
+	
+	
+</p:column>
+
+
+</p:dataTable>
+	
+	
+	
+
+	
+	
+
+
+
+
+
+</p:panel>
+
+</p:tab>
+
+
+
+
+
+<!-- ************************************************************************************************************************************************* --> 
+
+ 
+
+    <p:tab title="Completed Task">
+
+	
+	<p:panel header="All Completed Task" >
+	
+	
+	
+	<p:dataTable  id="completedTask2015" var="taskRecord" value="#{massMessenger.allCompletedTask}"  selection="#{massMessenger.selectedTaskRecord}" paginator="true" rows="10" rowKey="#{taskRecord.task_ID}">
+
+<p:column headerText="Task ID" >
+<h:outputText value="#{taskRecord.task_ID}"/>
+</p:column>
+
+<p:column headerText="First Name">
+<h:outputText value="#{taskRecord.candidateFirstName}"/>
+</p:column>
+
+<p:column headerText="Last Name">
+<h:outputText value="#{taskRecord.candidateLastName}"/>
+</p:column>
+
+<p:column headerText="Job Title">
+<h:outputText value="#{taskRecord.jobTitle}"/>
+</p:column>
+
+<p:column headerText="Completed By">
+<h:outputText value="#{taskRecord.nameuser}"/>
+</p:column>
+
+<p:column headerText="Date Completed">
+<h:outputText value="#{taskRecord.dateCompleted}"/>
+</p:column>
+
+<p:column headerText="Completed Template">
+ <p:commandButton id="download2487" value="Download" ajax="false" icon="ui-icon-arrowthick-1-s" action="#{massMessenger.DownloadCompletedTemplate}">
+ 	<f:setPropertyActionListener value="#{taskRecord}" target="#{massMessenger.selectedTaskRecord}" /> 
+ 		<p:fileDownload value="#{massMessenger.file}" />
+ </p:commandButton>
+</p:column>
+
+</p:dataTable>
+
+
+ 
+</p:panel>
+</p:tab>
+
+<!-- ************************************************************************************************************************************ -->
+ 
+    <p:tab title="Canceled Tasks">
+
+	
+	<p:panel header="Canceled Tasks">
+ 
+ <p:dataTable  id="canceledTask2015" var="task" value="#{massMessenger.allCanceledTask}"  paginator="true" rows="10" rowKey="#{taskRecord.task_ID}">
+ 
+ <p:column headerText="Task ID" >
+<h:outputText value="#{task.task_ID}"/>
+</p:column>
+ 
+ <p:column headerText="First Name">
+<h:outputText value="#{task.candidateFirstName}"/>
+</p:column>
+
+<p:column headerText="Last Name">
+<h:outputText value="#{task.candidateLastName}"/>
+</p:column>
+ 
+<p:column headerText="Comments">
+ <h:outputText value="#{task.cancelComments}" />
+</p:column> 
+ 
+ <p:column headerText="Date Canceled">
+ <h:outputText value="#{task.dateCanceled}" />
+</p:column> 
+ 
+ 
+<p:column headerText="Canceled By">
+<h:outputText value="#{task.nameuser}"/>
+</p:column> 
+ 
+ 
+ </p:dataTable>
+ 
+ </p:panel>
+ </p:tab>
+ 
+<!-- ************************************************************************************************************************************ -->
+ 
+    </p:tabView>
+</div>
+         </h:form>
+          <h:outputScript name="js/bootstrap.min.js" />
+
+
+</h:body>
+</ui:define>
+</ui:composition>
+</html>

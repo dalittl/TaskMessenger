@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="US-ASCII" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+         xmlns:h="http://java.sun.com/jsf/html"
+         xmlns:f="http://java.sun.com/jsf/core"
+         xmlns:p="http://primefaces.org/ui">
+         
+ <ui:composition template="/jsp/templates/template.xhtml">
+<ui:define name="content">
+         
+<h:head>
+
+</h:head>
+
+    <h:body>
+   
+    <p:dialog id="dialog2" header="Edit Resume" widgetVar="edtDialog" modal="true" resizable="true" width="1100" showEffect="clip" hideEffect="fold">
+    <h:form id="form">
+    <p:growl id="message" showDetail="true" />
+    
+    <h:panelGrid id="display" columns="4"  selection="#{TaskMessenger.selectedCandidateInfo}" selectionMode="single"> 
+         
+                <f:facet name="header">Edit Resume</f:facet>  
+           
+            <h:outputText value="First Name" />
+            <h:inputText  value="#{TaskMessenger.selectedCandidateInfo.candinfoFirstName}" />
+            <h:outputText value="Last Name" />  
+            <h:inputText  value="#{TaskMessenger.selectedCandidateInfo.candinfoLastName}" />
+            <h:outputText value="Middle Name"/>  
+            <h:inputText value="#{TaskMessenger.selectedCandidateInfo.candinfoMiddle}" />
+            <h:outputText value="Email"/>  
+            <h:inputText value="#{TaskMessenger.selectedCandidateInfo.candinfoEmail}" />
+            <h:outputText value="Skills"/>  
+            <h:inputText value="#{TaskMessenger.selectedCandidateInfo.candinfoSkills}" />  
+            </h:panelGrid> 
+         
+        
+    
+    <p:dataTable id="certss" var="e" value="#{TaskMessenger.allSelectedCerts}" editable="true" rows="5">
+    
+    <f:facet name="header">
+            In-Cell Editing
+        </f:facet>
+        
+        <p:ajax event="rowEdit" listener="#{TaskMessenger.rowEditCerts}" update=":form:message :form4:certts" />  
+        <p:ajax event="rowEditCancel" listener="#{TaskMessenger.cancelCerts}" update=":form:message :form4:certts" />   
+        
+         <p:column headerText="Cert name" style="width:30%">
+            <p:cellEditor>
+                <f:facet name="output">
+						  <h:outputText value="#{e.certName}" />
+						   <p:inputText value="#{e.certName}" style="width:100%"/>
+				</f:facet>	
+					   
+                <f:facet name="input">
+                          <p:inputText value="#{e.certName}" style="width:100%"/>
+                </f:facet>
+            </p:cellEditor>
+        </p:column>
+   
+     <p:column headerText="cert Date" style="width:20%">
+            <p:cellEditor>
+                <f:facet name="output">
+                    <h:outputText value="#{e.certYear}" />
+                </f:facet>
+                <f:facet name="input">
+                    <p:inputText value="#{e.certYear}" style="width:100%"
+                        label="CertDate" >
+                        <f:convertDateTime pattern="yyyy.MM.dd"/>
+                    </p:inputText>    
+                </f:facet>
+            </p:cellEditor>
+        </p:column> 
+     
+          <p:column style="width:6%">
+            <p:rowEditor id="re3356" />
+        </p:column>                      
+
+    </p:dataTable>
+    
+    <p:dataTable id="edu" var="ed" value="#{TaskMessenger.allSelectedEducation}" editable="true" rows="5">
+    
+     <f:facet name="header">In-Cell Editing Education</f:facet>
+      
+      <p:ajax event="rowEdit" listener="#{TaskMessenger.rowEditEducation}" update=":form:message :form4:eduy" />  
+      <p:ajax event="rowEditCancel" listener="#{TaskMessenger.cancelEducation}" update=":form:message :form4:eduy" />   
+     
+      <p:column headerText="Degree" style="width:30%">
+            <p:cellEditor>
+                <f:facet name="output">
+						  <h:outputText value="#{ed.degree}" />
+				</f:facet>	
+					   
+                <f:facet name="input">
+                          <p:inputText value="#{ed.degree}" style="width:100%"/>
+                </f:facet>
+            </p:cellEditor>
+        </p:column>
+        
+        <p:column headerText="School name" style="width:30%">
+            <p:cellEditor>
+                <f:facet name="output">
+						  <h:outputText value="#{ed.schoolName}" />
+				</f:facet>	
+					   
+                <f:facet name="input">
+                          <p:inputText value="#{ed.schoolName}" style="width:100%"/>
+                </f:facet>
+            </p:cellEditor>
+        </p:column>
+        
+         <p:column headerText="Major" style="width:30%">
+            <p:cellEditor>
+                <f:facet name="output">
+						  <h:outputText value="#{ed.major}" />
+				</f:facet>	
+					   
+                <f:facet name="input">
+                          <p:inputText value="#{ed.major}" style="width:100%"/>
+                </f:facet>
+            </p:cellEditor>
+        </p:column>
+        
+       <p:column headerText="Completion Date" style="width:30%">
+            <p:cellEditor>
+                <f:facet name="output">
+						  <h:outputText value="#{ed.compYear}" />
+				</f:facet>	
+					   
+                <f:facet name="input">
+                          <p:inputText value="#{ed.compYear}" style="width:100%" label="CompDate">
+                          <f:convertDateTime pattern="yyyy.MM.dd"/>
+                          </p:inputText>
+                </f:facet>
+            </p:cellEditor>
+        </p:column>   
+   
+         <p:column style="width:6%">
+            <p:rowEditor id="re543" />
+        </p:column>          
+    
+    </p:dataTable>
+    
+    <p:dataTable id="emp" var="ep" value="#{TaskMessenger.allSelectedEmploy}" editable="true" rows="5">
+    			
+			<f:facet name="header">In-Cell Editing Employment</f:facet>
+      
+      <p:ajax event="rowEdit" listener="#{TaskMessenger.rowEditEmploy}" update=":form:message :form4:wplo" />  
+      <p:ajax event="rowEditCancel" listener="#{TaskMessenger.cancelEmploy}" update=":form:message :form4:wplo"  />  
+     
+     
+				<p:column headerText="Company Name">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{ep.compName}" />
+						</f:facet>
+
+						<f:facet name="input">
+							<p:inputText value="#{ep.compName}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="Title">
+				<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{ep.title}" />
+						</f:facet>
+
+						<f:facet name="input">
+							<p:inputText value="#{ep.title}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+			   </p:column>
+				 <p:column headerText="From">
+                          <p:cellEditor>
+                                <f:facet name="output">
+                                       <h:outputText value="#{ep.fromMonth}" />
+                                 </f:facet>
+
+                                 <f:facet name="input">
+                                        <p:inputText value="#{ep.fromMonth}" style="width:100%" label="fromMonth">
+                                           <f:convertDateTime pattern="yyyy.MM.dd"/>
+                                        </p:inputText>
+                                 </f:facet>
+                          </p:cellEditor>
+                      </p:column>
+   
+                   <p:column headerText="To">
+                          <p:cellEditor>
+                               <f:facet name="output">
+                                      <h:outputText value="#{ep.toYear}" />
+                                </f:facet>
+
+                           <f:facet name="input">
+                                      <p:inputText value="#{ep.toYear}" style="width:100%" label="ToYear">
+                                      <f:convertDateTime pattern="yyyy.MM.dd"/>
+                                       </p:inputText>
+                                 </f:facet>
+                          </p:cellEditor>
+                     </p:column> 
+
+
+				<p:column headerText="Project Role">
+				       <p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{ep.projectRole}" />
+						</f:facet>
+
+						<f:facet name="input">
+							<p:inputText value="#{ep.projectRole}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				
+				   </p:column>
+				   
+				   <p:column headerText="Project Description">
+				       <p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{ep.projDescpt}" />
+						</f:facet>
+
+						<f:facet name="input">
+							<p:inputText value="#{ep.projDescpt}" style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+			   </p:column>
+			   
+			       <p:column headerText="From">
+                           <p:cellEditor>
+                                <f:facet name="output">
+                                       <h:outputText value="#{ep.projfromMonth}" />
+                                </f:facet>
+
+                                <f:facet name="input">
+                                      <p:inputText value="#{ep.projfromMonth}" style="width:100%" label="ProjFromMonth">
+                                       <f:convertDateTime pattern="yyyy.MM.dd"/>
+                                       </p:inputText>
+                                </f:facet>
+                            </p:cellEditor>
+                         </p:column> 
+   
+                     <p:column headerText="To">
+                          <p:cellEditor>
+                                <f:facet name="output">
+                                     <h:outputText value="#{ep.projtoYear}" />
+                                </f:facet>
+
+                               <f:facet name="input">
+                                      <p:inputText value="#{ep.projtoYear}" style="width:100%" label="ProjToYear">
+                                      <f:convertDateTime pattern="yyyy.MM.dd"/>
+                                      </p:inputText>
+                               </f:facet>
+                          </p:cellEditor> 
+                      </p:column>  
+				
+
+           <p:column style="width:6%">
+            <p:rowEditor id="po12" />
+        </p:column>      
+
+			</p:dataTable>
+			<div align="right">
+			 <p:commandButton value="Cancel" type="button" styleClass="ui-priority-primary" style="margin-top: 10px;" onclick="edtDialog.hide()" />
+			 
+			 <p:commandButton value="Submit" update=":form1:cands :form4:display :form4:certts :form4:eduy :form4:wplo" id="ajax"  
+             actionListener="#{TaskMessenger.updateViewCand}" styleClass="ui-priority-primary" style="margin-top: 10px;" onclick="edtDialog.hide()"/>
+                  
+			</div>
+    </h:form> 
+    </p:dialog>
+    
+    <p:dialog id="dialog1" header="View Resume" widgetVar="resDialog" modal="true" resizable="true" width="1100" showEffect="clip" hideEffect="fold">
+           <h:form id="form4">	
+           <div id= "Pg"> 
+			<h:panelGrid id="display" columns="4" cellpadding="2"> 
+          
+              <f:facet name="header">View Resume</f:facet>  
+       
+            <h:outputText value="First Name:" />
+            <h:outputText  value="#{TaskMessenger.selectedCandidateInfo.candinfoFirstName}" />
+            <h:outputText value="Last Name:" /> 
+            <h:outputText  value="#{TaskMessenger.selectedCandidateInfo.candinfoLastName}" />             
+            <h:outputText value="Middle Name:"/>
+            <h:outputText value="#{TaskMessenger.selectedCandidateInfo.candinfoMiddle}" />
+            <h:outputText value="Email:"/>
+            <h:outputText value="#{TaskMessenger.selectedCandidateInfo.candinfoEmail}" />
+            <h:outputText value="Skills:"/> 
+            <h:outputText value="#{TaskMessenger.selectedCandidateInfo.candinfoSkills}" />  
+                    
+           </h:panelGrid> 	 
+         </div>
+            <p:dataTable id="certts" var="cerr" value="#{TaskMessenger.allSelectedCerts}" rows="5" rowKey="#{cerr.certsid}" selection="#{TaskMessenger.selectedCerts}">   
+                         
+
+					<p:column headerText="Cert Name">
+					   <h:outputText value="#{cerr.certName}"/>
+	                </p:column>
+
+					<p:column headerText="Cert Date">
+					   <h:outputText value="#{cerr.certYear}"/>
+	                </p:column>
+	                
+	                
+
+			 </p:dataTable>
+				
+				 <p:dataTable id="eduy" var="educ" value="#{TaskMessenger.allSelectedEducation}" rows="5">
+				   <f:facet name="header">
+				      The selected Education
+				   </f:facet>
+				   
+				   <p:column headerText="School Name">
+				    #{educ.schoolName}
+				   </p:column>
+				   
+				   <p:column headerText="Major">
+				   #{educ.major}
+				   </p:column>
+				   
+				   <p:column headerText="Degree">
+				   #{educ.degree}
+				   </p:column>
+				   
+				   <p:column headerText="Completion Year">
+				   #{educ.compYear}
+				   </p:column>
+			
+				</p:dataTable> 
+               
+              <p:dataTable id="wplo" var="eplory"  value="#{TaskMessenger.allSelectedEmploy}" rows="5">
+                 <f:facet name="header">
+				      The selected Employment
+				   </f:facet>
+				   
+				   <p:column headerText="Company Name">
+				   #{eplory.compName}
+				   </p:column>
+				   
+				   <p:column headerText="Title">
+				   #{eplory.title}
+				   </p:column>
+				   
+				   <p:column headerText="From">
+				   #{eplory.fromMonth}
+				   </p:column>
+				   
+				   <p:column headerText="To">
+				   #{eplory.toYear}
+				   </p:column>
+				   
+				   <p:column headerText="Project Role">
+				   #{eplory.projectRole}
+				   </p:column>
+				   
+				   <p:column headerText="Project Description">
+				   #{eplory.projDescpt}
+				   </p:column>
+				   
+				   <p:column headerText="From">
+				   #{eplory.projfromMonth}
+				   </p:column>
+				   
+				   <p:column headerText="To">
+				   #{eplory.projtoYear}
+				   </p:column>
+				   
+			</p:dataTable>   
+	
+     </h:form>
+          <p:commandButton value="Cancel" type="button" styleClass="ui-priority-primary" style="margin-top: 10px;" onclick="resDialog.hide()"/>
+          <p:commandButton value="Edit" type="button" styleClass="ui-priority-primary" style="margin-top: 10px;" onclick="edtDialog.show()"/>
+           <p:commandButton value="Delete Resume" update=":form1:cands :form4:display :form4:certts :form4:eduy :form4:wplo" id="ajaxjt" actionListener="#{TaskMessenger.deleteCandidate}" styleClass="ui-priority-primary" style="margin-top: 10px;" onclick="edtDialog.hide()"/>
+                  
+	</p:dialog>  
+    
+    <h:form id="form1">   
+    <p:messages id="growl" sticky="true" showDetail="true" />    
+    <p:dataTable id="cands" var="cand" value="#{TaskMessenger.allQueryRecord}" paginator="true" rows="20" rowKey="#{cand.candinfo_id}"  
+                 selection="#{TaskMessenger.selectedCandidateInfo}" selectionMode="single" >  
+                 
+        <p:ajax event="rowSelect" listener="#{TaskMessenger.getIDNUmber}" update=":form:display :form:certss :form:edu :form:emp :form4:display :form4:certts :form4:eduy :form4:wplo" oncomplete="resDialog.show()"/>  
+  
+        <f:facet name="header">  
+            Click "View" button after selecting a row to see details  
+            
+        </f:facet> 
+     
+        <p:column headerText="First Name">  
+            #{cand.candinfoFirstName}  
+        </p:column>  
+  
+        <p:column headerText="Last Name">  
+            #{cand.candinfoLastName}  
+        </p:column>  
+  
+        <p:column headerText="Email" >  
+            #{cand.candinfoEmail}  
+        </p:column>  
+  
+        <p:column headerText="Skills">  
+            #{cand.candinfoSkills}  
+        </p:column>  
+        
+       <!-- <p:column>
+         <p:commandButton id="selectEdit" oncomplete="edtDialog.show()" value="Edit" icon="ui-icon-edit" title="View" update=":form:display :form:certss :form:edu :form:emp" rendered="#{TaskMessenger.showEditButtonDisable}"> 
+           <f:setPropertyActionListener value="#{cand}" target="#{TaskMessenger.selectedCandidateInfo}" />  
+         </p:commandButton>  
+         
+         <p:commandButton id="vieww" value="View" icon="ui-icon-document-b" update=":form4:display :form4:certts :form4:eduy :form4:wplo" oncomplete="resDialog.show()" rendered="#{TaskMessenger.showEditButtonDisable}" >
+          <f:setPropertyActionListener value="#{cand}" target="#{TaskMessenger.selectedCandidateInfo}" /> 
+         </p:commandButton> -->
+      
+       <!--  </p:column>  -->
+ 
+        <f:facet name="footer"> 
+          Click "View" button after selecting a row to see details  
+         </f:facet>  
+                                                   
+    </p:dataTable>     
+</h:form>   
+    </h:body>
+    
+    </ui:define>
+    </ui:composition>
+    
+</html>

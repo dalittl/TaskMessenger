@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	 xmlns:pe="http://primefaces.org/ui/extensions">
+
+<ui:composition template="/jsp/templates/template.xhtml">
+<ui:define name="content">
+
+<h:head>
+	
+</h:head>
+<body>
+	
+
+	<h:form id="formMain">
+	 <p:messages id="growl" sticky="true" showDetail="true" />
+		<div align="center">
+			<p:tabView id="tabView" style="width:85%">
+			   <p:tab id="resTab" title="Resume" >
+				<p:panel header="Resume Application">
+					<div class="hero-unit" align="center">
+						<h2>Welcome to the Resume Application</h2>
+
+
+						<h4>Would you like to add a resume:</h4>
+						<p>
+
+							  <a href="/TaskMessenger/faces/viewresume.xhtml"
+								class="btn btn-primary btn-large">View Resumes</a> 
+								<!-- <a
+								href="/massMessenger/faces/resume.xhtml" 
+								class="btn btn-primary btn-large" >Add Resumes</a> -->
+								<a
+								href="/TaskMessenger/faces/uploadresume.xhtml" 
+								class="btn btn-primary btn-large" >UpLoad Resumes</a>
+
+						</p>
+						<br />
+					</div>
+				</p:panel>
+				</p:tab>
+			</p:tabView>
+		</div>
+	</h:form>			
+	</body>	
+	</ui:define>
+	</ui:composition>		
+</html>

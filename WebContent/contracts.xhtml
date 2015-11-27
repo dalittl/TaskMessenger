@@ -1,0 +1,266 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+         xmlns:h="http://java.sun.com/jsf/html"
+         xmlns:f="http://java.sun.com/jsf/core"
+         xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/jsp/templates/template.xhtml">
+<ui:define name="content">
+  
+<p:dialog id="modalDialog1" header="Add New Contract Info" widgetVar="dlg2" modal="true" resizable="false" appendToBody="true">  
+  <h:form id="form1"> 
+   <ui:param name="contract31" value="#{massMessenger.contractRecord}" />  
+ 
+  <!-- <p:messages id="msgs" /> -->
+  
+
+ <h:panelGrid columns="1" cellpadding="5">
+            <p:outputLabel for="ContractTitle" value="Contract Title:" />
+            <p:inputText id="ContractTitle" value="#{massMessenger.contractTitle}" required="true" label="ContractTitle">
+                <f:validateLength minimum="2" />
+            </p:inputText>
+            <p:message for="ContractTitle" display="icon" />
+ 
+            <p:outputLabel for="ContractAgency" value="Contract Agency:" />
+            <p:inputText id="ContractAgency" value="#{massMessenger.contractAgency}" label="ContractAgency" required="true">
+                <f:validateLength minimum="2" />
+                <p:ajax update="msgContractAgency" event="keyup" />
+            </p:inputText>
+            <p:message for="ContractAgency" id="msgContractAgency" display="icon" />
+              
+              
+              <p:selectOneMenu id="contractclass" value="#{massMessenger.contractClass}">
+               <f:selectItem itemLabel="Select Classification type" itemValue="" />
+               <f:selectItem itemLabel="Unclassified" itemValue="Unclassified" />
+                <f:selectItem itemLabel="Secret" itemValue="Secret" />
+               <f:selectItem itemLabel="Top Secret" itemValue="Top Secret" />
+               
+               </p:selectOneMenu>
+               
+                 	<p:selectOneRadio id="console76438" value="#{massMessenger.contractStatus}">
+            <f:selectItem itemLabel="Urgent!" itemValue="Urgent!" />
+            <f:selectItem itemLabel="No Longer Urgent" itemValue="No Longer Urgent" />
+            <f:selectItem itemLabel="Potential Contract" itemValue="Potential Contract"/>
+        </p:selectOneRadio>  
+        
+        		
+        
+          
+               
+        </h:panelGrid>
+    <p:commandButton value="Add New Contract" onstart="document.forms['searchForm'].submit()" ajax="true" process="@this" update=":modalDialog1" actionListener="#{massMessenger.saveContractData}"  oncomplete="dlg2.hide();" icon="ui-icon-check" />
+
+  </h:form>
+</p:dialog> 
+
+     
+<p:dialog id="dialog425511" header="View Contract" widgetVar="contractDialog" modal="true" resizable="true" width="1100" showEffect="clip" hideEffect="fold">
+ <h:form id="form55">
+ <div id="Pgtr">
+						<p:dataTable id="displayContract" var="consel"
+							value="#{massMessenger.allSelectedPOC}">
+
+							<!-- <p:column headerText="Contract Title">
+								<h:outputText value="#{consel.contractTitle}" />
+							</p:column>
+
+							<p:column headerText="Contract Agency">
+								<h:outputText value="#{consel.contractAgency}" />
+							</p:column>
+
+							<p:column headerText="Contract Classification">
+								<h:outputText value="#{consel.contractClass}" />
+							</p:column>
+
+							<p:column headerText="Contract Status">
+								<h:outputText value="#{consel.contractStatus}" />
+							</p:column> -->
+
+							<p:column headerText="First Name">
+								<h:outputText value="#{consel.buisnessfirstname}" />
+							</p:column>
+
+							<p:column headerText="Last Name">
+								<h:outputText value="#{consel.buisnesslastname}" />
+							</p:column>
+
+							<!-- <p:column headerText="Phone Number">
+								<h:outputText value="#{sel.buisnessdev_PhoneNumber}" />
+							</p:column> -->
+
+							<p:column headerText="Email">
+								<h:outputText value="#{consel.buisnessemail}" />
+							</p:column>
+						</p:dataTable>
+					</div>
+ </h:form>
+</p:dialog>	
+
+
+<p:dialog id="modalDialog331" header="Delete Contract" widgetVar="dlgedit112" modal="true" resizable="false" appendToBody="true">  
+  <h:form id="form43"> 
+   <h:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto:">  
+   
+    <h:outputText value="Contract Title: " />
+  <h:outputText id="test565" value="#{massMessenger.selectedContracts.contractTitle}" required="true"/>
+  
+  <h:outputText value="Agency: " />
+  <h:outputText id= "test656" value="#{massMessenger.selectedContracts.contractAgency}" autoResize="true"/>
+  
+
+  
+   <h:outputText value="Are You Sure:"/>
+  <!-- <p:inputTextarea id= "test998" value="#{massMessenger.selectedContracts.contractAgency}" autoResize="true"/> -->
+  <p:commandButton id="submitButton9" onstart="document.forms['searchForm'].submit()" ajax="true" process="@this" update=":modalDialog331" value="Delete" 
+	action="#{massMessenger.deleteContract}"/>  
+  </h:panelGrid>
+  </h:form>
+</p:dialog> 
+
+
+<p:dialog id="modalDialog3" header="Edit Contract" widgetVar="dlgedit1" modal="true" resizable="false" appendToBody="true">  
+  <h:form id="form333">    
+   <h:panelGrid id="display" columns="1" cellpadding="4" style="margin:0 auto:">
+     <h:outputText value="Contract Title: " />
+  <p:inputText id="test8" value="#{massMessenger.selectedContracts.contractTitle}" required="true"/>                                                 
+  <h:outputText value="Agency: " />
+  <p:inputTextarea id= "test9" value="#{massMessenger.selectedContracts.contractAgency}" autoResize="true"/>
+  
+       <p:selectOneMenu id="console" value="#{massMessenger.selectedContracts.contractClass}">
+               <f:selectItem itemLabel="Select Classification type" itemValue="" />
+               <f:selectItem itemLabel="Public Trust" itemValue="Public Trust" />
+               <f:selectItem itemLabel="Unclassified" itemValue="Unclassified" />
+                <f:selectItem itemLabel="Secret" itemValue="Secret" />
+               <f:selectItem itemLabel="Top Secret" itemValue="Top Secret" />
+               
+               </p:selectOneMenu>
+               
+       	<p:selectOneRadio id="console78" value="#{massMessenger.selectedContracts.contractStatus}">
+            <f:selectItem itemLabel="Urgent!" itemValue="Urgent!" />
+            <f:selectItem itemLabel="No Longer Urgent" itemValue="No Longer Urgent" />
+            <f:selectItem itemLabel="Potential Contract" itemValue="Potential Contract"/>
+        </p:selectOneRadio>        
+        
+
+        
+  
+  <p:commandButton id="submitButton781" onstart="document.forms['searchForm'].submit()" ajax="true" process="@this" update=":modalDialog3" value="Edit" oncomplete="dlg2.hide();" type="submit"
+	action="#{massMessenger.updateContract}"/>  
+  </h:panelGrid>
+  </h:form>
+</p:dialog> 
+
+
+
+<h:form id="formMain">
+
+              
+  <div align="center">
+         <p:tabView id="tabView" style="width:85%">   
+ 
+    <p:tab title="Data Repository"> 
+     
+      <p:panel header="Current System Data" >  
+           <div align="left">
+									<p:panelGrid columns="6">
+
+										<h:outputText value="Contract's Data" />
+										<p:menuButton id="menuinfoAdmin2" value="Add New Contract">
+											<p:menuitem id="admin" value="Add Contracts"
+												action="siteAdministration" onclick="dlg2.show()" />
+										</p:menuButton>
+										<h:outputText value="Bulk UpLoads: " />
+										<p:selectOneRadio value="#{massMessenger.number}">
+											<f:selectItem itemLabel="Contract" itemValue="3" />
+											<!-- <f:selectItem itemLabel="PointOfContact" itemValue="4" /> -->
+											<p:ajax event="click" process="@this" update=":formMain"
+												listener="#{massMessenger.radiobutton}" async="true" />
+										</p:selectOneRadio>
+										<p:fileUpload
+											fileUploadListener="#{massMessenger.contFileUpload}"
+											rendered="#{massMessenger.showContractUpLoaderDisable}"
+											multiple="false" showButtons="false" update=":formMain"
+											mode="advanced" dragDropSupport="false" sizeLimit="16177215"
+											fileLimit="3"
+											allowTypes="/(\.|\/)(gif|jpe?g|png|pdf|docx|txt|DOC|DOCX|doc|docx|ppt|pptx|xls|xlsx|csv)$/" />
+
+									</p:panelGrid>
+				</div>
+           
+           <div>
+
+
+
+			<p:dataTable id="dtContractytre" var="contract" value="#{massMessenger.allContractPosted}" rows="12" paginator="true" rowKey="#{contract.contractID}"
+							selection="#{massMessenger.selectedContractInfo}" selectionMode="single">
+
+						<p:ajax event="rowSelect" listener="#{massMessenger.contractID}" update=":form55:displayContract" oncomplete="contractDialog.show()"/>
+                        
+
+										<f:facet name="header">
+                                      All Contracts
+                                       </f:facet>
+                                       
+                                       <p:column headerText="Contract ID">
+											#{contract.contractID} 
+										</p:column>
+
+										<p:column headerText="Contract Title">
+											#{contract.contractTitle}
+										</p:column>
+
+										<p:column headerText="Contract Agency">
+											#{contract.contractAgency}
+										</p:column>
+
+										<p:column headerText="Contract Classification">
+											#{contract.contractClass}
+										</p:column>
+
+										<p:column headerText="Contract Status">
+											#{contract.contractStatus}
+										</p:column>
+
+										<p:column headerText="Last Edited By" style="width:10%">
+											#{contract.nameuser}
+										</p:column>
+										
+		
+										
+										
+							
+
+					<p:column headerText="Options">
+
+										<p:commandButton id="selectButton11"
+											oncomplete="dlgedit1.show()" icon="ui-icon-pencil"
+											title="Edit" update=":form333:display">
+											<f:setPropertyActionListener value="#{contract}"
+												target="#{massMessenger.selectedContracts}" />
+										</p:commandButton>
+
+
+										<p:commandButton id="sectButton12"
+											oncomplete="dlgedit112.show()" icon="ui-icon-trash"
+											title="Delete" update=":form43:display">
+											<f:setPropertyActionListener value="#{contract}"
+												target="#{massMessenger.selectedContracts}" />
+										</p:commandButton>
+
+									</p:column>				
+										
+									</p:dataTable>
+
+						</div>
+			</p:panel>
+	</p:tab>
+	
+    </p:tabView>
+ </div>
+</h:form>
+     
+
+
+</ui:define>
+</ui:composition>
+</html>

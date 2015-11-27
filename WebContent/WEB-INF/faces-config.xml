@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<faces-config
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd"
+    version="2.1">
+    <application>
+		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver> 
+		<locale-config>
+			<default-locale>en</default-locale>
+		</locale-config>
+		<message-bundle>JSF-override</message-bundle>
+		
+		<resource-bundle>
+		 <base-name>com.acnc.mm.properties.message</base-name>
+		 <var>msg</var>		
+		</resource-bundle>		 
+	</application>
+	
+<managed-bean>
+		<description>
+			Backing bean for Mass Messenger
+        </description>
+		<managed-bean-name>massMessenger</managed-bean-name>
+		<managed-bean-class>com.acnc.mm.web.messenger.ViewMessengerData</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+
+<managed-bean>
+	<managed-bean-name>test</managed-bean-name>
+	<managed-bean-class>com.acnc.mm.web.messenger.TestData</managed-bean-class>
+	<managed-bean-scope>session</managed-bean-scope>
+</managed-bean>
+	
+	<managed-bean>
+	<managed-bean-name>chatView</managed-bean-name>
+	<managed-bean-class>com.acnc.mm.domain.messenger.FirstContactJob</managed-bean-class>
+	<managed-bean-scope>session</managed-bean-scope>
+</managed-bean>
+	
+	
+<!-- <managed-bean>
+	<managed-bean-name>QuartzTest</managed-bean-name>
+	<managed-bean-class>com.acnc.mm.web.messenger.QuartzTest</managed-bean-class>
+	<managed-bean-scope>session</managed-bean-scope>
+</managed-bean>	 -->
+	
+	
+	
+	
+<navigation-rule>
+		<display-name>*</display-name>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>nav_massMJob</from-outcome>
+			<to-view-id>/jsp/createJob.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>*</display-name>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>nav_massMCandidate</from-outcome>
+			<to-view-id>/jsp/createCandidate.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<!-- <navigation-rule>
+		<display-name>jsp/logoutSuccess</display-name>
+		<from-view-id>/jsp/logoutSuccess.jspx</from-view-id>
+		<navigation-case>
+			<from-outcome>login</from-outcome>
+			<to-view-id>/jsp/login.jspx</to-view-id>
+	</navigation-case>
+		
+	</navigation-rule>
+	<navigation-rule>
+		<display-name>jsp/accessDenied</display-name>
+		<from-view-id>/jsp/accessDenied.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>main</from-outcome>
+			<to-view-id>/main.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule> -->
+</faces-config>

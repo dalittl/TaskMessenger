@@ -1,0 +1,66 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+         xmlns:h="http://java.sun.com/jsf/html"
+         xmlns:f="http://java.sun.com/jsf/core"
+         xmlns:p="http://primefaces.org/ui">
+
+<body>
+
+<ui:composition>
+
+<f:view>
+	<h:form partialSubmit="true">
+	   <div class="navbar navbar-fixed-top">
+	     <div class="navbar-inner">
+			<div class="container">
+				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> 
+				<span class="icon-bar"></span> 
+				</a> 
+				
+				<a class="brand" href="/TaskMessenger/faces/main.xhtml">TaskMessenger</a>
+				
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li class="#{view.viewId == '/main.xhtml' ? 'active' : ''}">
+						<a href="/TaskMessenger/faces/main.xhtml">Home</a></li>		
+						
+						<li class="#{view.viewId == '/tasksAdmin.xhtml' ? 'active' : ''}">
+						<a href="/TaskMessenger/faces/tasksAdmin.xhtml">Task</a></li>				
+						
+						<li class="#{view.viewId == '/jobs.xhtml' ? 'active' : ''}">
+						<a href="/TaskMessenger/faces/jobs.xhtml">Jobs</a></li>
+						
+						<li class="#{view.viewId == '/contracts.xhtml' ? 'active' : ''}">
+						<a href="/TaskMessenger/faces/contracts.xhtml">Contracts</a></li>
+						
+						<li class="#{view.viewId == '/buildresume.xhtml' ? 'active' : ''}">
+						<a href="/TaskMessenger/faces/buildresume.xhtml">Resume</a>
+						</li>
+						
+						<li class="#{view.viewId == '/help.xhtml' ? 'active' : ''}">
+						<a href="/TaskMessenger/faces/help.xhtml">Help</a></li>
+						
+						<li class="#">
+						 <a href="#{request.contextPath}/j_spring_security_logout">Logout</a></li> 
+						  
+					</ul>
+					
+					 
+					 <p class="navbar-text pull-right">
+						Logged in as <a href="#"><h:outputText value="#{loginBean.nameuser}"/></a>
+				 
+					</p> 
+					
+					
+				</div>
+				<!--/.nav-collapse -->
+				 
+		</div>		
+	</div>
+	</div>
+	</h:form>
+	
+	</f:view>	
+	</ui:composition>
+	</body>
+</html>

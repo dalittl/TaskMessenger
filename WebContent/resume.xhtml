@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+
+<ui:composition template="/jsp/templates/template.xhtml">
+<ui:define name="content">
+<h:head>
+	
+	<style type="text/css">
+.list-header {
+	background-color: #ffffff;
+	color: #000000;
+	text-align: center;
+}
+</style>
+
+</h:head>
+<body>
+	
+	<h:form id="formMain">
+
+		  <p:growl id="growl" sticky="true" showDetail="true"/>
+ 
+     <h3>Add Resume</h3>
+    <p:accordionPanel multiple="true">
+        <p:tab title="Personal Details">
+            <h:panelGrid columns="2" cellpadding="10">
+               
+                <h:outputText value="Firstname: *" />
+						<p:inputText required="true" label="Firstname"
+							value="#{massMessenger.candinfoFirstName}" />
+						<h:outputText value="Lastname: *" />
+						<p:inputText required="true" label="Lastname"
+							value="#{massMessenger.candinfoLastName}" />
+						<h:outputText value="Middle Name: " />
+						<p:inputText value="#{massMessenger.candinfoMiddle}" />
+
+						<h:outputText value="Email: " />
+						<p:inputText value="#{massMessenger.candinfoEmail}" />
+            </h:panelGrid>
+       
+        </p:tab>
+        <p:tab title="Contract Info">
+            <h:panelGrid columns="2" cellpadding="10">
+                
+             <!--  <h:outputText value="Team Company Submitting Candidate : " />
+						<p:inputText value="#{massMessenger.candinfoQuestone}" />
+						<h:outputText value="Is the Candidate a Contingent Hire? " />
+						<p:inputText value="#{massMessenger.candinfoQuesttwo}" />
+						<h:outputText value="If so, Identify The candidate company : " />
+						<p:inputText value="#{massMessenger.candinfoQuesthree}" />
+						<h:outputText value="Is the candidate an incumbent on I2s? " />
+						<p:inputText value="#{massMessenger.candinfoQuestfour}" />
+						<h:outputText
+							value="If so, provide the i2s CSR Number of current position : " />
+						<p:inputText value="#{massMessenger.candinfoQuestfive}" /> -->
+						<h:outputText value="Key Skill Set : " />
+						<p:inputTextarea id="sk8765" value="#{massMessenger.candinfoSkills}" />	
+            </h:panelGrid>
+        </p:tab>
+      
+         <p:tab title="Education Details">
+            <h:panelGrid columns="2" cellpadding="10">
+               <h:outputText value="Degree :" />
+						<p:inputText value="#{massMessenger.degree}" />
+
+						<h:outputText value="School Name :" />
+						<p:inputText value="#{massMessenger.schoolName}" />
+
+						<h:outputText value="Major :" />
+						<p:inputText value="#{massMessenger.major}" />
+
+						<h:outputText value="Completion Year :" />
+						<p:calendar value="#{massMessenger.compYear}" navigator="true" pattern="MM/yyyy" yearRange="-100" showButtonPanel="true"/> 	
+            </h:panelGrid>
+        </p:tab>
+    
+     <p:tab title="Employment History">
+            <h:panelGrid columns="2" cellpadding="10">
+              	<h:outputText value="Employment Company Name :" />
+						<p:inputText  value="#{massMessenger.compName}" />
+						<h:outputText value="Title :" />
+						<p:inputText  value="#{massMessenger.title}" />
+						<h:outputText value="From(month) :" />
+						<p:calendar  value="#{massMessenger.fromMonth}" navigator="true" pattern="MM/yyyy" yearRange="-100" showButtonPanel="true" /> 
+						<h:outputText value="To(year) :" />
+						<p:calendar  value="#{massMessenger.toYear}" navigator="true" pattern="MM/yyyy" yearRange="-100" showButtonPanel="true" />
+						<h:outputText value="Project Role :" />
+						<p:inputText  value="#{massMessenger.projectRole}" />
+						<h:outputText value="From(month) :" />
+						<p:calendar  value="#{massMessenger.projfromMonth}" navigator="true" pattern="MM/yyyy" yearRange="-100" showButtonPanel="true" />
+						<h:outputText value="To(year) :" />
+						<p:calendar  value="#{massMessenger.projtoYear}" navigator="true" pattern="MM/yyyy" yearRange="-100" showButtonPanel="true"  />
+						<h:outputText value="Project Description :" />
+						<p:inputTextarea value="#{massMessenger.projDescpt}" />
+              
+            </h:panelGrid>
+        </p:tab>
+        
+        
+       
+    
+     <p:tab title="Certifications">
+            <h:panelGrid columns="2" cellpadding="10">
+              <h:outputText value="Certification :" />
+						<p:inputText value="#{massMessenger.certName}" />
+
+						<h:outputText value="Date of Certificate  :" />
+						<p:calendar value="#{massMessenger.certYear}" navigator="true" pattern="MM/yyyy" yearRange="-100" showButtonPanel="true"  />
+						
+            </h:panelGrid>
+        </p:tab>
+    
+    
+    </p:accordionPanel>
+ 
+<p:commandButton id="submitButton2" type="submit" value="Add Resume" actionListener="#{massMessenger.saveCandidateData}" icon="ui-icon-check" update=":formMain"/>  
+		
+	</h:form>
+
+</body>
+</ui:define>
+</ui:composition>
+</html>

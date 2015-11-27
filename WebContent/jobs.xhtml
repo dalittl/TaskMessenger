@@ -1,0 +1,1109 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+         xmlns:h="http://java.sun.com/jsf/html"
+         xmlns:f="http://java.sun.com/jsf/core"
+         xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/jsp/templates/template.xhtml">
+<ui:define name="content">
+<h:head>
+
+
+</h:head>
+<h:body>
+        
+ 
+ 			<!-- ********************************************SECTION FOR ADDING A NEW JOB******************************************* -->
+ 
+    
+<p:dialog id="modalDialog1" header="Add a New Job" widgetVar="dlg2" modal="true" resizable="false" appendToBody="true" width="800" align="center">  
+<h:form id="form1" enctype="multipart/form-data"> 
+    
+   
+    <p:accordionPanel>
+        <p:tab title="Main" >
+           <p:messages id="msgs"  autoUpdate="true"/>
+               <h:panelGrid columns="3" cellpadding="5">
+            
+            <p:outputLabel for="jobTitle" value="Job Title:" />
+            <p:inputText id="jobTitle" value="#{massMessenger.jobTitle}" required="true" label="JobTitle" >
+                <f:validateLength minimum="2" />
+            </p:inputText>
+            <p:message for="jobTitle" display="icon" />          
+            
+            
+              <p:outputLabel for="jobPosition" value="Job Position" />
+            <p:inputText id="jobPosition" value="#{massMessenger.jobPosition}" label="jobPosition" required="true" autoResize="true">
+                <f:validateLength minimum="2" />
+                <p:ajax update="msgjobPosition" event="keyup" />
+            </p:inputText>
+            <p:message for="jobPosition" id="msgjobPosition" display="icon" />
+            
+            
+               <p:outputLabel for="jobSkill" value="Job Skill" />
+            <p:inputText id="jobSkill" value="#{massMessenger.jobSkill}" label="jobSkill" required="true" autoResize="true">
+                <f:validateLength minimum="2" />
+                <p:ajax update="msgjobSkill" event="keyup" />
+            </p:inputText>
+            <p:message for="jobSkill" id="msgjobSkill" display="icon" />
+            
+            
+                   <p:outputLabel for="jobLocation" value="Job Location" />
+            <p:inputText id="jobLocation" value="#{massMessenger.jobLocation}" label="jobLocation" required="true" autoResize="true">
+                <f:validateLength minimum="2" />
+                <p:ajax update="msgjobLocation" event="keyup" />
+            </p:inputText>
+            <p:message for="jobLocation" id="msgjobLocation" display="icon" />
+            
+            
+              <p:outputLabel for="jobSkillsDesired" value="Job Skills Desired" />
+            <p:inputTextarea id="jobSkillsDesired" value="#{massMessenger.jobSkillsDesired}" label="jobSkillsDesired" required="true" autoResize="false">
+                <f:validateLength minimum="2" />
+                <p:ajax update="msgjobSkillsDesired" event="keyup" />
+            </p:inputTextarea>
+            <p:message for="jobSkillsDesired" id="msgjobSkillsDesired" display="icon" />
+            
+              <p:outputLabel for="jobDescription" value="Job Description" />
+            <p:inputTextarea id="jobDescription" value="#{massMessenger.jobDescription}" label="jobDescription" required="true" autoResize="false">
+                <f:validateLength minimum="2" />
+                <p:ajax update="msgjobDescription" event="keyup" />
+            </p:inputTextarea>
+            <p:message for="jobDescription" id="msgjobDescription" display="icon" />
+        
+        
+               <h:outputLabel for="jobMan" value="Job Mandatory Skills " />
+               	<p:inputText id= "jobMan" value="#{massMessenger.jobSkillsMandatory}" autoResize="true" required="true"/>
+ 	<p:message for="jobMan" id="msgjobMan" display="icon" />
+ 	 
+ 	  
+ 	  <h:outputLabel for="jobClear" value="Clearance Type"/>
+ 	  <h:panelGrid id="jobClear" columns="2" style="margin-bottom:10px" cellpadding="5">
+              <p:outputLabel for="jobClear" value="" />
+	<p:selectOneMenu id="jobClearance"
+	value="#{massMessenger.jobClear}">
+	<f:selectItem itemLabel="Select Clearance type" itemValue="" />
+	<f:selectItem itemLabel="Confidential"
+	itemValue="Confidential" />
+	<f:selectItem itemLabel="Secret" itemValue="Secret" />
+	<f:selectItem itemLabel="TS" itemValue="TS" />
+	<f:selectItem itemLabel="TS/ISSA" itemValue="TS/ISSA" />
+	<f:selectItem itemLabel="TS SCI" itemValue="TS SCI" />
+	<f:selectItem itemLabel="TS SCI w/CI Poly"
+	itemValue="TS SCI w/CI Poly" />
+	<f:selectItem itemLabel="TS SCI w/CI + LS Poly"
+	itemValue="TS SCI w/CI + LS Poly" />
+	</p:selectOneMenu>
+	</h:panelGrid>	
+ 	<p:message for="jobClear" id="msgjobClear" display="icon"/>
+ 	
+ 	<!-- <p:outputLabel for="Title1" value="Contract Title"/>
+ 	<p:selectOneMenu id="Title1" value="#{massMessenger.allContractPosted}">
+ 	<f:selectItem itemLabel="Contract Title" itemValue=""/>
+ 	<f:selectItems value="#{massMessenger.allContractPosted}" var="jt" itemLabel="#{jt.contractTitle}"/>
+ 	</p:selectOneMenu>	 -->
+ 	  
+                	
+         </h:panelGrid>
+          
+          </p:tab>
+          
+        <p:tab title="Addtional">
+            <h:panelGrid columns="1" cellpadding="5">
+               <h:outputText value="Job Certification Requirements : " />
+               <p:inputText id= "test4323243" value="#{massMessenger.jobCertRequired}" autoResize="true"/>
+               <h:outputText value="Job Work Night: " />
+                <p:inputText id= "test465346743" value="#{massMessenger.jobWorkNight}" autoResize="true"/>
+                  <h:outputText value="Job Work Holiday: " />
+                <p:inputText id= "test46561343" value="#{massMessenger.jobWorkHoliday}" autoResize="true"/>
+                <h:outputText value="Job Work Weekend: " />
+                <p:inputText id= "test8546543" value="#{massMessenger.jobWorkWeekend}" autoResize="true"/>
+            </h:panelGrid>
+        </p:tab>
+        <p:tab title="Miscellaneous">
+            <h:panelGrid columns="4" cellpadding="5">
+               <h:outputText value="Job CONUS: " />
+  <p:inputText id= "test46543" value="#{massMessenger.jobConus}" autoResize="true"/>
+  
+       <h:outputText value="Job OCONUS: " />
+  <p:inputText id= "test46586943" value="#{massMessenger.jobOconus}" autoResize="true"/> 
+
+
+       <h:outputText value="Job Hours Per Year: " />
+  <p:inputText id= "test4659843" value="#{massMessenger.jobbHoursYear}" autoResize="true"/>
+  
+       <h:outputText value="Job Schedule Comments: " />
+  <p:inputText id= "test875643" value="#{massMessenger.jobSchedComment}" autoResize="true"/>
+  
+  <h:outputText value="Job Mission Critical: " />
+  <p:inputText id= "test46554343" value="#{massMessenger.jobMissionCritical}" autoResize="true"/>
+    <h:outputText value="Job Shiftwork: " />
+  <p:inputText id= "test98546543" value="#{massMessenger.jobShiftWork}" autoResize="true"/>
+  
+       <h:outputText value="Job Warzone: " />
+  <p:inputText id= "test5639543" value="#{massMessenger.jobWarZone}" autoResize="true"/>
+  
+       <h:outputText value="Job Coop: " />
+  <p:inputText id= "test974546543" value="#{massMessenger.jobCoop}" autoResize="true"/>
+             
+    <h:outputText value="Job Local Travel: " />
+  <p:inputText id= "test97454654423" value="#{massMessenger.jobLocalTravel}" autoResize="true"/>  
+  
+  <h:outputText value="Job Pager: " />
+  <p:inputText id= "test67254654423" value="#{massMessenger.jobPager}" autoResize="true"/>  
+  
+   <h:outputText value="Job Pager Comments: " />
+  <p:inputText id= "test6437254654423" value="#{massMessenger.jobPagerComment}" autoResize="true"/> 
+  
+   <h:outputText value="Job Close Date" />
+  <p:inputText id= "test643725465644423" value="#{massMessenger.jobCloseDate}" autoResize="true"/> 
+  
+
+ 
+   </h:panelGrid>
+   </p:tab>
+     </p:accordionPanel>
+   
+     <p:commandButton id="submitButton2" type="submit" value="Add New Job" actionListener="#{massMessenger.saveJobData}" icon="ui-icon-check" update=":modalDialog2" oncomplete="dlg2.hide();" ajax="false" process="@form"/>  
+ </h:form> 
+</p:dialog>
+ 	
+  <!-- ********************************************SECTION FOR ADDING A NEW CANDIDATE******************************************* -->
+
+ <p:dialog id="modalDialog2" header="Add a New Candidate" widgetVar="dlg3" modal="true" resizable="false" appendToBody="true" >
+ <h:form id="form2" enctype="multipart/form-data"> 
+ <ui:param name="candidateRecord1" value="#{massMessenger.candidateInfo}" />  
+ 
+ <p:messages id="msgs"  autoUpdate="true"/>  
+ 
+ <h:panelGrid id="display11" columns="3" cellpadding="8" >
+ <p:outputLabel for="firstname" value="First Name:" />
+            <p:inputText id="firstname" value="#{massMessenger.candinfoFirstName}" required="true" label="firstname">
+                <f:validateLength minimum="2" />
+            </p:inputText>
+            <p:message for="firstname" display="icon" />
+  
+<p:outputLabel for="lastname" value="Last Name:" />
+            <p:inputText id="lastname" value="#{massMessenger.candinfoLastName}" required="true" label="lastname">
+                <f:validateLength minimum="2" />
+            </p:inputText>
+            <p:message for="lastname" display="icon" />
+  
+<p:outputLabel for="email" value="Email:" />
+            <p:inputText id="email" value="#{massMessenger.candinfoEmail}" required="true" label="email">
+                <f:validateLength minimum="2" />
+            </p:inputText>
+            <p:message for="email" display="icon" />
+            
+<p:outputLabel for="number" value="Number:" />
+            <p:inputText id="number" value="#{massMessenger.candinfoNumber}" required="true" label="number"/>
+            <p:message for="number" display="icon"/>
+            
+ <p:outputLabel for="clearance" value="Clearance Type:" />     
+ <p:selectOneMenu id="clearance" value="#{massMessenger.candinfoClearance}">
+               <f:selectItem itemLabel="Select Clearance type" itemValue="" />
+               <f:selectItem itemLabel="Confidential" itemValue="Confidential" />
+               <f:selectItem itemLabel="Secret" itemValue="Secret" />
+               <f:selectItem itemLabel="TS" itemValue="TS" />
+               <f:selectItem itemLabel="TS SCI" itemValue="TS SCI" />
+               <f:selectItem itemLabel="TS SCI w/CI Poly" itemValue="TS SCI w/CI Poly" />
+               <f:selectItem itemLabel="TS SCI w/CI + LS Poly" itemValue="TS SCI w/CI + LS Poly" />               
+               </p:selectOneMenu>
+         <p:message for="clearance" display="icon"/>
+
+												
+					
+		
+						<h:panelGrid cellpadding="2">
+        <p:selectOneRadio id="console" value="#{massMessenger.candinfoStatus}">
+            <f:selectItem itemLabel="Have Not Contacted" itemValue="Have Not Contacted" />
+            <f:selectItem itemLabel="Interested" itemValue="Interested" />
+            <f:selectItem itemLabel="Maybe Interested" itemValue="Maybe Interested" />
+             <f:selectItem itemLabel="Not Interested" itemValue="Not Interested" />
+        </p:selectOneRadio>
+        </h:panelGrid>
+        
+
+   <p:commandButton id="submitButton1" onstart="document.forms['searchForm'].submit()" update=":modalDialog2" value="Add Candidate" type="submit" ajax="true" process="@form" 
+   oncomplete="dlg3.hide();" actionListener="#{massMessenger.saveCandidateInfo}"/>   
+  </h:panelGrid>
+  </h:form>
+ </p:dialog> 
+
+
+			<!-- ********************************************SECTION FOR EDITING A JOB ******************************************* -->
+
+<p:dialog id="modalDialog3" header="Edit Job" widgetVar="dlgedit1" modal="true" resizable="true" appendToBody="true" width="800">  
+  <h:form id="form3"> 
+<ui:param name="jobRecord2" value="#{massMessenger.jobRecord}" />  
+  
+  
+    <p:accordionPanel id="panel" scrollable="true">
+        
+        <p:tab title="Main">
+       <h:panelGrid id="display" columns="2" cellpadding="2">
+      
+            <h:outputText value="Job Title:" />
+            <p:inputText id="test5" value="#{massMessenger.selectedJobs.jobTitle}" required="true"/>
+          <h:outputText value="Job Position: " />
+            <p:inputText id= "test6743" value="#{massMessenger.selectedJobs.jobPosition}" autoResize="true"/>
+               <h:outputText value="Job Skill: " />
+            <p:inputText id= "test104286" value="#{massMessenger.selectedJobs.jobSkill}" autoResize="true"/>
+             <h:outputText value="Job Location: " />
+              <p:inputText id= "test671343" value="#{massMessenger.selectedJobs.jobLocation}" autoResize="true"/>
+               <h:outputText value="Job Skills Desired: " />
+               <p:inputTextarea id= "test432143" value="#{massMessenger.selectedJobs.jobSkillsDesired}" autoResize="false"/>
+                 <h:outputText value="Job Description: " />
+            <p:inputTextarea id= "test6" value="#{massMessenger.selectedJobs.jobDescription}" autoResize="false"/>
+              
+            
+        <h:outputText value="Job Mandatory Skills: " />
+               	<p:inputText id= "test4343" value="#{massMessenger.selectedJobs.jobSkillsMandatory}" autoResize="false"/>
+               
+               	<p:selectOneRadio id="console" value="#{massMessenger.selectedJobs.jobPriority}">
+            <f:selectItem itemLabel="Urgent!" itemValue="1" />
+            <f:selectItem itemLabel="No Longer Urgent" itemValue="2" />
+        </p:selectOneRadio>
+      
+     
+      	<p:outputLabel for="Title" value="" />
+            <p:selectOneMenu id="Title" value="#{massMessenger.selectedJobs.contractTitle}">
+             <f:selectItem itemLabel="#{massMessenger.selectedJobs.contractTitle}" itemValue="#{massMessenger.selectedJobs.contractTitle}" />
+ 	 </p:selectOneMenu>
+      	
+      	<h:panelGrid columns="0" style="margin-bottom:0px" cellpadding="0">
+              <p:outputLabel for="Clearance" value="" />
+            <p:selectOneMenu id="Clearance" value="#{massMessenger.selectedJobs.jobClear}">
+               <f:selectItem itemLabel="Select Clearance type" itemValue="" />
+               <f:selectItem itemLabel="Confidential" itemValue="Confidential" />
+                <f:selectItem itemLabel="Secret" itemValue="Secret" />
+               <f:selectItem itemLabel="TS" itemValue="TS" />
+               <f:selectItem itemLabel="TS SCI" itemValue="TS SCI" />
+               <f:selectItem itemLabel="TS/ISSA" itemValue="TS/ISSA" />
+               <f:selectItem itemLabel="TS SCI w/CI Poly" itemValue="TS SCI w/CI Poly" />
+               <f:selectItem itemLabel="TS SCI w/CI + LS Poly" itemValue="TS SCI w/CI + LS Poly" />
+               </p:selectOneMenu>
+               </h:panelGrid>
+
+               </h:panelGrid>
+                      
+        </p:tab>
+         
+        <p:tab title="Additional">
+            <h:panelGrid columns="1" cellpadding="5">
+               <h:outputText value="Job Certification Requirements : " />
+               <p:inputText id= "test4323243" value="#{massMessenger.selectedJobs.jobCertRequired}" autoResize="true"/>
+               <h:outputText value="Job Work Night: " />
+                <p:inputText id= "test465346743" value="#{massMessenger.selectedJobs.jobWorkNight}" autoResize="true"/>
+                  <h:outputText value="Job Work Holiday: " />
+                <p:inputText id= "test46561343" value="#{massMessenger.selectedJobs.jobWorkHoliday}" autoResize="true"/>
+                <h:outputText value="Job Work Weekend: " />
+                <p:inputText id= "test8546543" value="#{massMessenger.selectedJobs.jobWorkWeekend}" autoResize="true"/>
+            </h:panelGrid>
+        </p:tab>
+        <p:tab title="Miscellaneous">
+            <h:panelGrid columns="26" cellpadding="4">
+               <h:outputText value="Job CONUS: " />
+  <p:inputText id= "test46543" value="#{massMessenger.selectedJobs.jobConus}" autoResize="true"/>
+  
+       <h:outputText value="Job OCONUS: " />
+  <p:inputText id= "test46586943" value="#{massMessenger.selectedJobs.jobOconus}" autoResize="true"/>
+  
+
+       <h:outputText value="Job Hours Per Year: " />
+  <p:inputText id= "HoursPerYear" value="#{massMessenger.selectedJobs.jobbHoursYear}" autoResize="true"/>
+  
+       <h:outputText value="Job Schedule Comments: " />
+  <p:inputText id= "test875643" value="#{massMessenger.selectedJobs.jobSchedComment}" autoResize="true"/>
+  
+  <h:outputText value="Job Mission Critical: " />
+  <p:inputText id= "test46554343" value="#{massMessenger.selectedJobs.jobMissionCritical}" autoResize="true"/>
+    <h:outputText value="Job Shiftwork: " />
+  <p:inputText id= "test98546543" value="#{massMessenger.selectedJobs.jobShiftWork}" autoResize="true"/>
+  
+       <h:outputText value="Job Warzone: " />
+  <p:inputText id= "test5639543" value="#{massMessenger.selectedJobs.jobWarZone}" autoResize="true"/>
+  
+       <h:outputText value="Job Coop: " />
+  <p:inputText id= "test974546543" value="#{massMessenger.selectedJobs.jobCoop}" autoResize="true"/>
+  
+    <h:outputText value="Job Local Travel: " />
+  <p:inputText id= "test97454654423" value="#{massMessenger.selectedJobs.jobLocalTravel}" autoResize="true"/>  
+  
+  <h:outputText value="Job Pager: " />
+  <p:inputText id= "test67254654423" value="#{massMessenger.selectedJobs.jobPager}" autoResize="true"/>  
+  
+   <h:outputText value="Job Pager Comments: " />
+  <p:inputText id= "test6437254654423" value="#{massMessenger.selectedJobs.jobPagerComment}" autoResize="true"/> 
+             
+	<h:outputText value="Job Non Pub: " />
+  <p:inputText id= "test94566675554333" value="#{massMessenger.selectedJobs.jobNonPub}" autoResize="true"/> 
+  
+  <h:outputText value="Job Close Date: " />
+  <p:inputText id= "test945666753214333" value="#{massMessenger.selectedJobs.jobCloseDate}" autoResize="true"/> 
+
+
+   </h:panelGrid>
+   </p:tab>
+     </p:accordionPanel>
+      <p:commandButton id="submitButton2" onstart="document.forms['searchForm'].submit()" ajax="true" process="@this" 
+      update=":modalDialog1" value="Update" oncomplete="dlg2.hide();" type="submit" action="#{massMessenger.updateJob}" icon="ui-icon-check"/> 
+ </h:form> 
+</p:dialog>
+
+<!-- ******************************************************** SECTION FOR EDITING A CANDIDATE **************************************************************************** -->
+     
+ <p:dialog id="modalDialog4" header="Edit Candidate" widgetVar="dlgedit2" modal="true" resizable="false" appendToBody="true" >
+ <h:form id="form4">
+ <h:panelGrid id="display" cellpadding="4" style="margin:0 auto;">
+ 
+
+ <h:outputText value="Record Id: " />
+ <h:outputText id="test221" value="#{massMessenger.selectedCandidateInfo.candinfo_id}"/>
+    <h:outputText value="First Name: " />
+  <p:inputText id="test78" value="#{massMessenger.selectedCandidateInfo.candinfoFirstName}" required="true"/>
+  
+  <h:outputText value="Last Name: " />
+  <p:inputText id="test98" value="#{massMessenger.selectedCandidateInfo.candinfoLastName}" required="true"/>
+  
+    <h:outputText value="Phone Number: " />
+  <p:inputText id="test11112399" value="#{massMessenger.selectedCandidateInfo.candinfoNumber}" required="false"/>
+  
+  <h:outputText value="Email: " />
+  <p:inputText id="test99" value="#{massMessenger.selectedCandidateInfo.candinfoEmail}" required="true"/>
+  
+  
+    <p:selectOneMenu id="console1" value="#{massMessenger.selectedCandidateInfo.candinfoClearance}">
+               <f:selectItem itemLabel="Select Clearance type" itemValue="" />
+               <f:selectItem itemLabel="Confidential" itemValue="Confidential" />
+               <f:selectItem itemLabel="Secret" itemValue="Secret" />
+               <f:selectItem itemLabel="TS" itemValue="TS" />
+               <f:selectItem itemLabel="TS SCI" itemValue="TS SCI" />
+               <f:selectItem itemLabel="TS SCI w/CI Poly" itemValue="TS SCI w/CI Poly" />
+               <f:selectItem itemLabel="TS SCI w/CI + LS Poly" itemValue="TS SCI w/CI + LS Poly" />
+               
+               </p:selectOneMenu>
+ 
+   
+   
+       <h:panelGrid cellpadding="2">
+        <p:selectOneRadio id="console" value="#{massMessenger.selectedCandidateInfo.candinfoStatus}">
+            <f:selectItem itemLabel="Have Not Contacted" itemValue="Have Not Contacted" />
+            <f:selectItem itemLabel="Interested" itemValue="Interested" />
+            <f:selectItem itemLabel="Maybe Interested" itemValue="Maybe Interested" />
+            <f:selectItem itemLabel="Not Interested" itemValue="Not Interested" />
+        </p:selectOneRadio>
+        </h:panelGrid>
+  
+  
+  
+  
+   <p:commandButton id="submitButton8" onstart="document.forms['searchForm'].submit()" ajax="true" process="@this" update=":modalDialog4" value="Update" oncomplete="dlg3.hide();" type="submit"
+	action="#{massMessenger.updateViewCand}" />  
+  </h:panelGrid>
+ </h:form>
+</p:dialog>
+<!--**************************************************************************************************************************************************** -->
+
+
+
+<!--************************************************ SECTION FOR DELETING A CANDIDATE *************************************************************** -->
+
+<p:dialog id="modalDialog6" header="Delete Candidate" widgetVar="digedit4" modal="true" resizable="false" appendToBody="true">
+<h:form id="form6">
+<h:panelGrid id="display" columns="4" cellpadding="5" style="margin:0 auto:">
+
+<h:outputText value="Record Id: " />
+ <h:outputText id="test2211" value="#{massMessenger.selectedCandidateInfo.candinfo_id}"/>
+    <h:outputText value="First Name: " />
+  <h:outputText id="test781" value="#{massMessenger.selectedCandidateInfo.candinfoFirstName}" />
+  
+  <h:outputText value="Last Name: " />
+  <h:outputText id="test981" value="#{massMessenger.selectedCandidateInfo.candinfoLastName}" />
+  
+  <h:outputText value="Email: " />
+  <h:outputText id="test991" value="#{massMessenger.selectedCandidateInfo.candinfoEmail}" />
+  
+ 
+  <h:outputText value="Created Date: " />
+  <h:outputText id="test9999" value="#{massMessenger.selectedCandidateInfo.candinfoCreated}"/>
+ 
+ <h:outputText value="Are You Sure:"/>
+ 
+ <p:commandButton id="submitButton5" onstart="document.forms['searchForm'].submit()" ajax="true" process="@this" update=":modalDialog6"  value="Delete" action="#{massMessenger.deleteCandidate}"/> 
+   
+  </h:panelGrid>
+  </h:form>
+</p:dialog>
+<!--*********************************************************************************************************************************************************** -->
+
+<!--*********************************************************** MARK JOB AS URGENT************************************************************************* -->
+
+<p:dialog id="modalDialogUrgent" header="Job Status" widgetVar="dlgUrgent" modal="true" resizable="false" appendToBody="true">  
+  <h:form id="formUrgent"> 
+   <h:panelGrid id="display" cellpadding="4" style="margin:0 auto;">
+  
+  	<p:selectOneRadio id="console" value="#{massMessenger.selectedJobs.jobPriority}">
+            <f:selectItem itemLabel="Urgent!" itemValue="1" />
+            <f:selectItem itemLabel="No Longer Urgent" itemValue="2" />
+        </p:selectOneRadio>
+        
+         <p:commandButton id="submitBut8" onstart="document.forms['searchForm'].submit()" ajax="true" process="@this" update=":modalDialogUrgent" value="Update" oncomplete="dlgUrgent.hide();" type="submit"
+	action="#{massMessenger.updateJob}"/>  
+
+</h:panelGrid>
+</h:form>
+</p:dialog>
+
+
+
+
+
+
+
+
+
+
+<!-- *********************************************************************************************************************************************************** -->
+
+
+
+
+
+
+
+<!--************************************************ SECTION FOR DELETING A JOB *************************************************************** -->
+
+<p:dialog id="modalDialog31" header="Delete Job" widgetVar="dlgedit11" modal="true" resizable="false" appendToBody="true">  
+  <h:form id="form39"> 
+  
+  <h:panelGrid id="display"  columns="2" >
+
+<h:outputText value="Job Id " />
+  <h:outputText id="te823223" value="#{massMessenger.selectedJobs.jobID}" />
+
+<h:outputText value="Job Title: " />
+  <h:outputText id="te8233" value="#{massMessenger.selectedJobs.jobTitle}" />
+
+<h:outputText value="Job Description: " />
+  <h:outputText id="te8232" value="#{massMessenger.selectedJobs.jobDescription}" />
+  
+
+     <h:outputText value="Are You Sure: " />
+  <p:commandButton id="submitButton91" onstart="document.forms['searchForm'].submit()" ajax="true" process="@this" 
+   update=":modalDialog31" value="Delete" action="#{massMessenger.deleteJob}"/>  
+  </h:panelGrid>
+  </h:form>
+</p:dialog> 
+<!--**************************************************************************************************************************************************** -->
+
+<p:dialog id="modalDialog313" header="Save Email Que For Existing Candidates " widgetVar="dlgtry11" modal="true" resizable="false" appendToBody="true">  
+  <h:form id="formECC"> 
+<p:dataTable id="emailiddt2166" var="emailRepo" value="#{massMessenger.allAddedEmailsInfo}" paginator="true" rows="5"
+rowKey="#{emailRepo.emailRepoID}" > 
+
+<p:column styleClass="scrollableCell" headerText="First Name" sortBy="#{emailRepo.candidateFirstName}">
+<h:outputText value="#{emailRepo.candidateFirstName}"/>
+</p:column>
+
+<p:column styleClass="scrollableCell" headerText="Last Name" sortBy="#{emailRepo.candidateLastName}">
+<h:outputText value="#{emailRepo.candidateLastName}"/>
+</p:column>
+
+<p:column styleClass="scrollableCell" headerText="Email Account" sortBy="#{emailRepo.candidateEmail}">
+<h:outputText value="#{emailRepo.candidateEmail}"/>
+</p:column>
+
+<p:column styleClass="scrollableCell" headerText="Job Title" sortBy="#{emailRepo.jobTitle}">
+<h:outputText value="#{emailRepo.jobTitle}"/>
+</p:column>
+
+<p:rowEditor />
+	<p:column headerText="Options">
+
+	<p:commandLink
+	action="#{massMessenger.removeAction3(emailRepo)}" value=" "
+	styleClass="ui-icon ui-icon-trash" update="emailiddt2166"
+	ajax="true">
+	<f:setPropertyActionListener
+	target="#{massMessenger.selectedEmail2}" value="#{item}" />
+	</p:commandLink>
+
+	</p:column>
+
+</p:dataTable>
+    <br></br>
+
+<p:panelGrid columns="2">
+<h:outputText value="Store and Send Selected List to Email Service: " />
+      <p:commandButton id="cbMMCanDtJobBtn4474352" onstart="document.forms['searchForm'].submit()" value="Submit" action="#{massMessenger.sendToEmailServiceExisting}" ajax="true" process="@this" 
+      type="submit"/>
+     
+
+</p:panelGrid>
+    
+
+</h:form>
+</p:dialog>
+
+<!-- *************************************** THIS IS NEW CANDIDATES SAVE EMAIL QUE  **********************************************-->
+
+<p:dialog id="modalDialog555" header="Save Email Que For New Candidates" widgetVar="dlgtry555" modal="true" resizable="false" appendToBody="true">  
+  <h:form id="formENN"> 
+<p:dataTable id="emailiddt555" var="emailRepo" value="#{massMessenger.allAddedEmailsInfoExisting}" paginator="true" rows="5"
+rowKey="#{emailRepo.emailRepoID}" > 
+
+<p:column styleClass="scrollableCell" headerText="First Name" sortBy="#{emailRepo.candidateFirstName}">
+<h:outputText value="#{emailRepo.candidateFirstName}"/>
+</p:column>
+
+<p:column styleClass="scrollableCell" headerText="Last Name" sortBy="#{emailRepo.candidateLastName}">
+<h:outputText value="#{emailRepo.candidateLastName}"/>
+</p:column>
+
+<p:column styleClass="scrollableCell" headerText="Email Account" sortBy="#{emailRepo.candidateEmail}">
+<h:outputText value="#{emailRepo.candidateEmail}"/>
+</p:column>
+
+<p:column styleClass="scrollableCell" headerText="Job Title" sortBy="#{emailRepo.jobTitle}">
+<h:outputText value="#{emailRepo.jobTitle}"/>
+</p:column>
+
+<p:rowEditor />
+	<p:column headerText="Options">
+
+	<p:commandLink
+	action="#{massMessenger.removeAction2(emailRepo)}" value=" "
+	styleClass="ui-icon ui-icon-trash" update="emailiddt555"
+	ajax="true">
+	<f:setPropertyActionListener
+	target="#{massMessenger.selectedEmail2}" value="#{item}" />
+	</p:commandLink>
+
+	</p:column>
+
+</p:dataTable>
+    <br></br>
+
+<p:panelGrid columns="2">
+<h:outputText value="Store and Send Selected List to Email Service: " />
+      <p:commandButton id="cbMMCanDtJobBtn8888" onstart="document.forms['searchForm'].submit()" value="Submit" action="#{massMessenger.sendToEmailService}" ajax="true" process="@this" 
+      type="submit"/>
+     
+
+</p:panelGrid>
+    
+
+</h:form>
+</p:dialog>
+
+<!-- ***********************************************************Send Task ********************************************************************************* -->
+
+
+
+
+<!-- ***************************************************************************************************************************************************** -->
+
+
+
+
+<!-- ***********************************************************UPLOAD RESUME ********************************************************************************* -->
+
+<p:dialog id="modalDialogResume" header="Upload Candidate Resume" widgetVar="dlgResume" modal="true" resizable="false" appendToBody="true">  
+  <h:form id="formResume"> 
+   <h:panelGrid id="display" cellpadding="4" style="margin:0 auto;">
+  <h:outputText value="Record Id: " />
+ <h:outputText id="test221" value="#{massMessenger.selectedCandidateInfo.candinfo_id}"/>
+   
+    <h:outputText value="#{massMessenger.selectedCandidateInfo.candinfoFirstName}" />
+  
+  
+  <h:outputText value="#{massMessenger.selectedCandidateInfo.candinfoLastName}" />
+  
+  <h:outputText value="#{massMessenger.selectedCandidateInfo.candinfoEmail}" />
+  
+
+     <p:fileUpload id="upload2122"
+	fileUploadListener="#{massMessenger.resumeFileUploader}"
+	 multiple="false" showButtons="false"
+	update=":formMain" process="@this" mode="advanced" dragDropSupport="false"
+	sizeLimit="16177215" fileLimit="3"
+	allowTypes="/(\.|\/)(gif|jpe?g|png|pdf|docx|txt|DOC|DOCX|doc|docx|ppt|pptx|xls|xlsx|csv)$/"
+	oncomplete="dlgResume.hide()" />
+	
+ 
+</h:panelGrid>
+
+</h:form>
+</p:dialog>
+<!-- *********************************************************************************************************************************************************** -->
+
+
+<!-- ********************************************************Upload Job Template********************************************************************************* -->
+
+<p:dialog id="modalDialogTemplate" header="Upload Job Template" widgetVar="dlgTemplate" modal="true" resizable="false" appendToBody="true">  
+  <h:form id="formTemplate"> 
+   <h:panelGrid id="display" cellpadding="4" style="margin:0 auto;">
+  <h:outputText value="Record Id: " />
+ <h:outputText id="test221" value="#{massMessenger.selectedJobs.jobID}"/>
+   
+    <h:outputText value="#{massMessenger.selectedJobs.jobTitle}" />
+  
+
+ 
+     <p:fileUpload id="jobTemplateUpload"
+	fileUploadListener="#{massMessenger.jobTemplateUploader}"
+	 multiple="false" showButtons="false"
+	update=":formMain" process="@this" mode="advanced" dragDropSupport="false"
+	sizeLimit="16177215" fileLimit="3"
+	allowTypes="/(\.|\/)(gif|jpe?g|png|pdf|docx|txt|DOC|DOCX|doc|docx|ppt|pptx|xls|xlsx|csv)$/"
+	oncomplete="dlgResume.hide()" />
+	
+ 
+</h:panelGrid>
+
+</h:form>
+</p:dialog>
+
+
+
+<!-- ************************************************************************************************************************************************************ -->
+
+
+<!-- ****************************************************************VIEW RESUME ********************************************************************************* -->
+
+<p:dialog id="modalDialogView" header="View Resume" widgetVar="dlgView" modal="true" resizable="false" appendToBody="true" draggable="true">  
+  <h:form id="formView"> 
+   <h:panelGrid id="display" cellpadding="4" style="margin:0 auto;" width="600">
+ 
+	
+   
+    <p:commandButton value="Download" ajax="false"  icon="ui-icon-arrowthick-1-s">
+        <p:fileDownload value="#{massMessenger.fileDownloadView}" />
+    </p:commandButton>
+
+    
+	
+</h:panelGrid>
+</h:form>
+</p:dialog>
+
+
+
+<!-- *********************************************************************************************************************************************************** -->
+
+
+
+
+<!-- This is where im trying to get the button to show up from ******************************************************** -->
+
+
+<h:form id="formMain">
+
+
+	<p:growl id="growl" showDetail="true" escape="true" /> 
+       
+
+
+<div align="center">
+         <p:tabView id="tabView" style="width:90%">
+
+
+
+    <p:tab title="All Candidates">
+
+	
+	<p:panel header="Current System Data" >
+	
+	
+	
+	
+	<div align="left">
+      <p:panelGrid columns="5">
+     
+      <h:outputText value="Candidate's Data " />
+      
+      <p:menuButton id="menuinfoAdmin" value="Add New Candidate" >	
+	<p:menuitem id="admin2" value="Add Candidates" action="logs" onclick="dlg3.show()"/>	
+     	</p:menuButton>
+
+	</p:panelGrid>
+     </div>
+          
+
+<p:dataTable id="dtCandidate21" var="candidate" value="#{massMessenger.allCandidateInfoPostedAll}" paginator="true" rows="10"
+rowKey="#{candidate.candinfo_id}" selection="#{massMessenger.allSelectedCandidateInfoAll}"> 
+
+<p:column selectionMode="multiple" style="width:10px"/>
+
+<p:column filterBy="#{candidate.candinfoFirstName}"  headerText="First Name" sortBy="#{candidate.candinfoFirstName}" footerText="contains" filterMatchMode="contains">
+<h:outputText value="#{candidate.candinfoFirstName}"/>
+</p:column>
+
+<p:column filterBy="#{candidate.candinfoLastName}" headerText="Last Name" sortBy="#{candidate.candinfoLastName}" footerText="contains" filterMatchMode="contains">
+<h:outputText value="#{candidate.candinfoLastName}"/>
+</p:column>
+
+<p:column filterBy="#{candidate.candinfoClearance}" headerText="Clearance" sortBy="#{candidate.candinfoClearance}" footerText="contains" filterMatchMode="contains">
+<h:outputText value="#{candidate.candinfoClearance}"/>
+</p:column>
+
+
+<p:column filterBy="#{candidate.candinfoStatus}" headerText="Status" sortBy="#{candidate.candinfoStatus}" footerText="contains" filterMatchMode="contains">
+<h:outputText value="#{candidate.candinfoStatus}"/>
+</p:column>
+
+
+<p:column filterBy="#{candidate.nameuser}"    headerText="Last Edited By" sortBy="#{candidate.nameuser}" footerText="contains" filterMatchMode="contains">
+<h:outputText value="#{candidate.nameuser}"/>
+</p:column>
+
+
+<p:column style="width:4%" headerText="Options">  
+
+			
+            
+                <p:commandButton id="selectButton7654" oncomplete="dlgedit2.show()" icon="ui-icon-pencil" title="Edit" update=":form4:display">  
+                <f:setPropertyActionListener value="#{candidate}" target="#{massMessenger.selectedCandidateInfo}" />  
+            </p:commandButton>  
+           
+          
+            <p:commandButton id="selectionButton1234"  icon="ui-icon ui-icon-arrowreturnthick-1-n" title="Attach File" oncomplete="dlgResume.show()" update=":formResume:display" >
+            <f:setPropertyActionListener value="#{candidate}" target="#{massMessenger.selectedCandidateInfo}" /> 
+            </p:commandButton>
+         
+          
+             <p:commandButton id="selectionButton54321"  icon="ui-icon ui-icon-document" title="View File" oncomplete="dlgView.show()" update=":formView:display">
+           <f:setPropertyActionListener value="#{candidate}" target="#{massMessenger.selectedCandidateInfo}" /> 
+            </p:commandButton>
+           
+           <p:commandButton id="selectbutton3675" oncomplete="digedit4.show()"  icon="ui-icon ui-icon-trash" title="Delete" update=":form6:display">
+            <f:setPropertyActionListener  value="#{candidate}" target="#{massMessenger.selectedCandidateInfo}" />
+            </p:commandButton> 
+         
+           
+           
+        </p:column>
+
+</p:dataTable>
+
+
+ 
+</p:panel>
+</p:tab>
+
+
+
+
+<!-- ***************************************************** TAB FOR ALL JOBS **************************************************************** --> 
+
+ <p:tab title="All Jobs">
+ 
+
+  <div align="left">
+    <p:panelGrid columns="2">
+     
+     <h:outputText value="Job's Data" />
+      
+      <p:menuButton id="menuAdmin2434" value="Add New Job">	
+ 	<p:menuitem id="adminlk8" value="Add Job" action="siteAdministration" onclick="dlg2.show()"/>
+ 	
+	</p:menuButton>
+	
+	</p:panelGrid>
+	</div>
+ 
+ 
+ <p:dataTable id="dtJobs56432" var="jobs21" value="#{massMessenger.allJobPostedExisting}" selection="#{massMessenger.selectedJobAll}" paginator="true" rows="20"> 
+
+
+
+<p:column filterBy="#{jobs21.jobRequest}" headerText="Request Number" sortBy="#{jobs21.jobRequest}" footerText="contains" filterMatchMode="contains">
+<h:outputText value="#{jobs21.jobRequest}"/>
+</p:column>
+
+<p:column filterBy="#{jobs21.jobTitle}" headerText="Title" sortBy="#{jobs21.jobTitle}" footerText="contains" filterMatchMode="contains">
+<h:outputText value="#{jobs21.jobTitle}"/>
+</p:column>
+
+<p:column filterBy="#{jobs21.jobSkill}" headerText="Job Skill" sortBy="#{jobs21.jobSkill}" footerText="contains" filterMatchMode="contains">
+<h:outputText value="#{jobs21.jobSkill}"/>
+</p:column>
+
+<p:column filterBy="#{jobs21.jobClear}" headerText="Clearance" sortBy="#{jobs21.jobClear}" footerText="contains" filterMatchMode="contains">
+<h:outputText value="#{jobs21.jobClear}"/>
+</p:column>
+ 
+ 
+ <p:column headerText="Options">
+ 				
+  <p:commandButton id="selectButton42221" oncomplete="dlgedit1.show()" icon="ui-icon-pencil" title="View" update=":form3:panel">  
+                <f:setPropertyActionListener value="#{jobs21}" target="#{massMessenger.selectedJobs}"/>  
+            </p:commandButton> 
+  
+        <p:commandButton id="selectbutton6672"  icon="ui-icon ui-icon-arrowreturnthick-1-n" title="Attach File" oncomplete="dlgTemplate.show()" update=":formTemplate:display">
+            <f:setPropertyActionListener value="#{jobs21}" target="#{massMessenger.selectedJobs}" /> 
+            </p:commandButton>
+         
+         
+         
+      <p:commandButton id="selection88885721"  icon="ui-icon-flag" title="Urgent" oncomplete="dlgUrgent.show()" update=":formUrgent:display">
+   <f:setPropertyActionListener value="#{jobs21}" target="#{massMessenger.selectedJobs}"/>  
+            </p:commandButton>      
+
+	  <p:commandButton id="seleButton4108423" oncomplete="dlgedit11.show()" icon="ui-icon-trash"  title="View" update=":form39:display">  
+                <f:setPropertyActionListener value="#{jobs21}" target="#{massMessenger.selectedJobs}"/>  
+            </p:commandButton> 
+            
+            
+            
+
+
+        </p:column>
+ 
+ </p:dataTable>
+ </p:tab>
+
+
+
+<!-- ***************************************************** TAB FOR NEW CANDIDATE **************************************************************** --> 
+
+ <p:tab title="New Candidates">
+
+	
+	<p:panel header="Current System Data" >
+	
+	
+	
+	
+	<div align="left">
+      <p:panelGrid columns="5">
+     
+      <h:outputText value="Candidate's Data " />
+      
+      <p:menuButton id="menuinfoAdmin2015" value="Add New Candidate" >	
+	<p:menuitem id="admin2015" value="Add Candidates" action="logs" onclick="dlg3.show()"/>	
+     	</p:menuButton>
+
+	</p:panelGrid>
+     </div>
+          
+
+ <p:dataTable id="dtCandidate2015" var="candidate" value="#{massMessenger.allCandidateInfoPosted}" paginator="true" rows="5"
+rowKey="#{candidate.candinfo_id}" selection="#{massMessenger.allSelectedCandidateInfoExisting}"> 
+
+<p:column selectionMode="multiple" style="width:10px"/>
+
+<p:column filterBy="#{candidate.candinfoFirstName}"  headerText="First Name" sortBy="#{candidate.candinfoFirstName}" footerText="contains" filterMatchMode="contains">
+<h:outputText value="#{candidate.candinfoFirstName}"/>
+</p:column>
+
+<p:column filterBy="#{candidate.candinfoLastName}" headerText="Last Name" sortBy="#{candidate.candinfoLastName}" footerText="contains" filterMatchMode="contains">
+<h:outputText value="#{candidate.candinfoLastName}"/>
+</p:column>
+
+
+
+
+<p:column filterBy="#{candidate.candinfoClearance}" headerText="Clearance" sortBy="#{candidate.candinfoClearance}" footerText="contains" filterMatchMode="contains">
+<h:outputText value="#{candidate.candinfoClearance}"/>
+</p:column>
+
+
+<p:column filterBy="#{candidate.candinfoStatus}" headerText="Status" sortBy="#{candidate.candinfoStatus}" footerText="contains" filterMatchMode="contains">
+<h:outputText value="#{candidate.candinfoStatus}"/>
+</p:column>
+
+<p:column filterBy="#{candidate.nameuser}"    headerText="Last Edited By" sortBy="#{candidate.nameuser}" footerText="contains" filterMatchMode="contains">
+<h:outputText value="#{candidate.nameuser}"/>
+</p:column>
+
+
+
+
+<p:column style="width:4%" headerText="Options">  
+
+            <!-- Candidate Buttons -->
+                <p:commandButton id="selectButton93333219" oncomplete="dlgedit2.show()"
+                icon="ui-icon-pencil" title="View" update=":form4:display">  
+                <f:setPropertyActionListener value="#{candidate}" target="#{massMessenger.selectedCandidateInfo}" />  
+            </p:commandButton>  
+            
+          
+            <p:commandButton id="selectbutton2015" oncomplete="digedit4.show()"
+             icon="ui-icon-trash" title="Delete" update=":form6:display">
+            <f:setPropertyActionListener  value="#{candidate}" target="#{massMessenger.selectedCandidateInfo}" />
+            </p:commandButton> 
+            
+          
+           
+        </p:column>
+
+</p:dataTable>
+
+<br></br>
+<p:panelGrid columns="6">
+<h:outputText value="Set Selection(s) to Pending State: " />
+       
+       <p:commandButton id="cbMMCan653DtJobBtn1" oncomplete="dlgtry555.show()"  value="Save" action="#{massMessenger.addLinkedCanandJobsExisting}" ajax="true" process="@form" update=":formENN:emailiddt555" type="submit"/>
+   
+
+</p:panelGrid>
+
+
+
+
+
+</p:panel>
+</p:tab>
+<!-- ************************************************************************************************************************************************* --> 
+
+ <p:tab title="Existing Candidates">
+
+	
+	<p:panel header="Current System Data" >
+	
+ 
+
+ <p:dataTable id="dtCandidate201512" var="candidate" value="#{massMessenger.allCandidateInfoPostedExisting}" paginator="true" rows="5"
+rowKey="#{candidate.candinfo_id}" selection="#{massMessenger.allSelectedCandidateInfo}"> 
+
+<p:column selectionMode="multiple" style="width:10px"/>
+
+<p:column filterBy="#{candidate.candinfoFirstName}"  headerText="First Name" sortBy="#{candidate.candinfoFirstName}" footerText="contains" filterMatchMode="contains">
+<h:outputText value="#{candidate.candinfoFirstName}"/>
+</p:column>
+
+<p:column filterBy="#{candidate.candinfoLastName}" headerText="Last Name" sortBy="#{candidate.candinfoLastName}" footerText="contains" filterMatchMode="contains">
+<h:outputText value="#{candidate.candinfoLastName}"/>
+</p:column>
+
+
+<p:column filterBy="#{candidate.candinfoClearance}" headerText="Clearance" sortBy="#{candidate.candinfoClearance}" footerText="contains" filterMatchMode="contains">
+<h:outputText value="#{candidate.candinfoClearance}"/>
+</p:column>
+
+
+<p:column filterBy="#{candidate.candinfoStatus}" headerText="Status" sortBy="#{candidate.candinfoStatus}" footerText="contains" filterMatchMode="contains">
+<h:outputText value="#{candidate.candinfoStatus}"/>
+</p:column>
+
+<p:column filterBy="#{candidate.nameuser}"    headerText="Last Edited By" sortBy="#{candidate.nameuser}" footerText="contains" filterMatchMode="contains">
+<h:outputText value="#{candidate.nameuser}"/>
+</p:column>
+
+
+
+
+<p:column style="width:4%" headerText="Options">  
+
+            <!-- Candidate Buttons -->
+                <p:commandButton id="selectButton3329" oncomplete="dlgedit2.show()"
+                icon="ui-icon-pencil" title="View" update=":form4:display">  
+                <f:setPropertyActionListener value="#{candidate}" target="#{massMessenger.selectedCandidateInfo}" />  
+            </p:commandButton>  
+            
+          
+            <p:commandButton id="selectbutton205" oncomplete="digedit4.show()"
+             icon="ui-icon-trash" title="View" update=":form6:display">
+            <f:setPropertyActionListener  value="#{candidate}" target="#{massMessenger.selectedCandidateInfo}" />
+            </p:commandButton> 
+            
+          
+           
+        </p:column>
+
+</p:dataTable>
+
+<br></br>
+<p:panelGrid columns="6">
+<h:outputText value="Set Selection(s) to Pending State: " />
+         
+<p:commandButton id="cbMMCanDtJobBtn1" oncomplete="dlgtry11.show()"  value="Save" action="#{massMessenger.addLinkedCanandJobs}" ajax="true" process="@form" update=":formECC:emailiddt2166" type="submit">
+   
+</p:commandButton>
+
+</p:panelGrid>
+</p:panel>
+</p:tab>
+
+
+
+
+ <p:tab title="Sent Log">
+  <p:panel header="Overall Previously Sent Email Repository" toggleable="false" >
+  
+  <p:dataTable id="emailiddt1" var="emailRepo" value="#{massMessenger.allEmailPosted}" paginator="true" rows="5"
+rowKey="#{emailRepo.emailRepoID}" > 
+
+<p:column headerText="ID" sortBy="#{emailRepo.emailRepoID}">
+<h:outputText value="#{emailRepo.emailRepoID}"/>
+</p:column>
+
+<p:column headerText="First Name" sortBy="#{emailRepo.candidateFirstName}">
+<h:outputText value="#{emailRepo.candidateFirstName}"/>
+</p:column>
+
+<p:column headerText="Last Name" sortBy="#{emailRepo.candidateLastName}">
+<h:outputText value="#{emailRepo.candidateLastName}"/>
+</p:column>
+
+<p:column headerText="Email Account" sortBy="#{emailRepo.candidateEmail}">
+<h:outputText value="#{emailRepo.candidateEmail}"/>
+</p:column>
+
+<p:column headerText="Job Title" sortBy="#{emailRepo.jobTitle}">
+<h:outputText value="#{emailRepo.jobTitle}"/>
+</p:column>
+
+<p:column headerText="Date" sortBy="#{emailRepo.dtCreated}">
+<h:outputText value="#{emailRepo.dtCreated}"/>
+</p:column>
+
+<p:column headerText="Email Sent By:" sortBy="#{emailRepo.nameuser}">
+<h:outputText value="#{emailRepo.nameuser}"/>
+</p:column>
+
+</p:dataTable>
+</p:panel>
+</p:tab>
+
+<!--*********************************************************** TASKER **************************************************************************** -->
+
+<!--  <p:tab title="Task">
+
+ <p:dataTable id="dtCandidateTask" var="candidate" value="#{massMessenger.allCandidateInfoPostedTask}" paginator="true" rows="5"
+rowKey="#{candidate.candinfo_id}"> 
+
+<p:column selectionMode="multiple" style="width:10px"/>
+
+<p:column filterBy="#{candidate.candinfoFirstName}"  headerText="First Name" sortBy="#{candidate.candinfoFirstName}" footerText="contains" filterMatchMode="contains">
+<h:outputText value="#{candidate.candinfoFirstName}"/>
+</p:column>
+
+<p:column filterBy="#{candidate.candinfoLastName}" headerText="Last Name" sortBy="#{candidate.candinfoLastName}" footerText="contains" filterMatchMode="contains">
+<h:outputText value="#{candidate.candinfoLastName}"/>
+</p:column>
+
+<p:column filterBy="#{candidate.nameuser}"    headerText="Last Edited By" sortBy="#{candidate.nameuser}" footerText="contains" filterMatchMode="contains">
+<h:outputText value="#{candidate.nameuser}"/>
+</p:column>
+
+</p:dataTable>
+
+</p:tab> -->
+
+<!-- ************************************************************************************************************************************************ -->
+
+
+
+
+
+    </p:tabView>
+</div>
+         </h:form>
+          <h:outputScript name="js/bootstrap.min.js" />
+
+
+</h:body>
+</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,74 @@
+<html 
+xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+         xmlns:h="http://java.sun.com/jsf/html"
+         xmlns:f="http://java.sun.com/jsf/core"
+         xmlns:p="http://primefaces.org/ui">
+	
+	
+<h:head>
+	<h:outputStylesheet name="css/bootstrap.min.css" />
+	<h:outputStylesheet name="css/DT_bootstrap.css" />
+	
+<style type="text/css">
+body {
+	padding-top: 60px;
+	padding-bottom: 40px;
+}
+
+.sidebar-nav {
+	padding: 9px 0;
+}
+.selectMenu { display: inline-block; vertical-align: top; }
+</style>
+	
+</h:head>
+	<title>TaskMessenger Applications</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+
+<p:growl id="growl" showDetail="true" escape="true" /> 
+
+
+
+	<h:outputStylesheet name="css/bootstrap.css" />
+	<h:outputStylesheet name="css/DT_bootstrap.css" />
+	<h:body>
+         <div>
+  <h:outputScript name="js/bootstrap.min.js" /> 
+	
+<!--  <p:growl id="growl" showDetail="true" escape="true" />  -->
+	<!-- <div class="container"> -->
+	
+		 <div id="header" align="center">
+			<ui:insert name="header">
+				<ui:include src="/jsp/templates/header.xhtml"/> 
+			</ui:insert>
+		</div>
+
+		 <div id="menu" align="center">
+			<ui:insert name="menu">
+				<ui:include src="/jsp/templates/menu.xhtml"/> 
+			</ui:insert>
+		</div> 
+		
+		
+			<div id="mainContent" align="center">
+				<ui:insert name="content" align="center" >
+				
+				</ui:insert>
+			</div>	
+		
+		
+		<div id="footer" align="center">
+			<ui:insert name="footer" >	
+				<ui:include src="/jsp/templates/footer.xhtml" />
+			</ui:insert>
+		</div> 
+
+</div>
+</h:body>
+	
+</html>

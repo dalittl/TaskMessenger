@@ -1,0 +1,136 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+         xmlns:h="http://java.sun.com/jsf/html"
+         xmlns:f="http://java.sun.com/jsf/core"
+         xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/jsp/templates/template.xhtml">
+<ui:define name="content">
+	
+<p:dialog id="dialog11" header="View Job" widgetVar="jobDialog" modal="true" resizable="true" width="1100" showEffect="clip" hideEffect="fold">
+ <h:form id="form50">
+ <div id="Pg">												   
+ 	<p:dataTable id="display" var="sel" value="#{massMessenger.allSelectedJobs}">
+ 	
+ 	    <p:column headerText="Job id">
+               <h:outputText value="#{sel.jobID}"/>
+        </p:column>
+        
+       
+ 	    <p:column headerText="Job Title">
+               <h:outputText value="#{sel.jobTitle}"/>
+        </p:column>
+ 		
+ 
+       <p:column headerText="Job Skill">
+              <h:outputText value="#{sel.jobSkill}" />
+        </p:column>
+ 
+       <p:column headerText="Clearence Level">
+               <h:outputText value="#{sel.jobClear}" />
+       </p:column>
+ 
+       <p:column headerText="Job Cert Requirement">
+              <h:outputText value="#{sel.jobCertRequired}" />
+        </p:column>
+ 	 
+ 	   <p:column headerText="Job Description"  style="width:10%" >
+             <h:inputTextarea value="#{sel.jobDescription}" />
+       </p:column>
+    
+    	</p:dataTable>
+   </div>
+ </h:form>
+</p:dialog>	
+	
+	
+	
+<h:form id="urgentJobs">
+<p:tabView>
+
+				<p:tab title="Urgent Job Openings">
+					<!-- <div id="bigdiv"> -->
+						<p:dataTable id="dtJobs" var="job" value="#{massMessenger.allJobPriority}" rows="12" paginator="true" rowKey="#{job.contractID}" 
+						  selection="#{massMessenger.selectedJobInfo}" selectionMode="single">
+						  
+						   <p:ajax event="rowSelect" listener="#{massMessenger.getJobIDNumber}"  update=":form50:display" oncomplete="jobDialog.show()"/>  
+								
+								<f:facet name="header">
+                                      Urgent Job Openings
+                                </f:facet>
+                                <p:column headerText="Contract ID">  
+                                   #{job.contractID}  
+                                </p:column>  
+                                
+                                 
+                                 <p:column headerText="Contract Title">  
+                                   #{job.contractTitle}  
+                                </p:column>  
+  								
+  
+                              <p:column headerText="Contract Agency">  
+                                 #{job.contractAgency}  
+                               </p:column>  
+  
+                               <p:column headerText="Date Avaiable" >  
+                                   #{job.contractDate}  
+                                </p:column>  
+  
+  
+								 <f:facet name="footer"> 
+                                    Click a row to see details  !! 
+                                  </f:facet>  
+
+							</p:dataTable>
+
+ 
+						
+					<!-- </div> -->
+				</p:tab>
+
+				<p:tab title="Potential Contracts">
+
+					<div>
+						<p:dataGrid var="bus"
+							value="#{massMessenger.allBuisnessContracts}" columns="3"
+							layout="grid" rows="12" paginator="true" id="dtJobs234" >
+							<!-- paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+							rowsPerPageTemplate="6,12"> -->
+
+							<f:facet name="header">
+                                  Contract Listing Openings
+                            </f:facet>
+        
+        <p:panel header="#{bus.contractTitle}" style="text-align:center">
+								<h:panelGrid columns="2" style="width:100%">
+								    <h:outputText value="Contract Title: "/>
+									<h:outputText value="#{bus.contractTitle}" />
+									<h:outputText value="Contract Date: "/>
+									<h:outputText value="#{bus.contractDate}" />
+									<h:outputText value="Contract Angency: "/>
+									<h:outputText value="#{bus.contractAgency}" />
+									<h:outputText value="Point of Contact: "/>
+									<h:outputText value="#{bus.buisnessdevFirstname}"/>
+									<h:outputText value="POC Email: "/>
+									<h:outputText value="#{bus.buisnessdevEmail}"/>
+									<h:outputText value="POC Phone Number: "/>
+									<h:outputText value="#{bus.buisnessdevPhonenumber}"/>
+									
+
+								</h:panelGrid>
+							</p:panel>
+
+						</p:dataGrid>
+
+					</div>
+
+				</p:tab>
+			</p:tabView>
+ 
+   
+</h:form>
+
+	</ui:define>
+	</ui:composition>	
+  
+</html>

@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:p="http://primefaces.org/ui"
+xmlns:pe="http://primefaces.org/ui/extensions">
+
+<ui:composition template="/jsp/templates/template.xhtml">
+
+<ui:define name="content">
+
+<h:head>
+
+
+<style type="text/css">
+
+.list-header {
+
+background-color: #ffffff;
+
+color: #000000;
+
+text-align: center;
+
+}
+
+</style>
+
+
+
+</h:head>
+<body>
+	
+	<h:form id="formMain">
+
+		<p:messages id="growl" sticky="true" showDetail="true" />
+
+		<pe:masterDetail id="masterDetail" level="#{TaskMessenger.currentLevel}"
+			showBreadcrumb="false">
+			<f:facet name="header">
+				<p:messages showDetail="true" />
+				<h:panelGroup layout="block" style="margin-top: 10px;">
+					<h:panelGroup
+						styleClass=" levelTitle ui-state-default ui-corner-all
+                                  #{userWizard.currentLevel eq 1 ? 'ui-state-hover' : ''}">
+						<h:outputText value="Personal" />
+					</h:panelGroup>
+					<h:panelGroup
+						styleClass="levelTitle ui-state-default ui-corner-all  
+                                  #{userWizard.currentLevel eq 2 ? 'ui-state-hover' : ''}">
+						<h:outputText value="Contract Info" />
+					</h:panelGroup>
+
+					<h:panelGroup
+						styleClass="levelTitle ui-state-default ui-corner-all  
+                                  #{userWizard.currentLevel eq 3 ? 'ui-state-hover' : ''}">
+						<h:outputText value="Education" />
+					</h:panelGroup>
+					<h:panelGroup
+						styleClass="levelTitle ui-state-default ui-corner-all  
+                                  #{userWizard.currentLevel eq 4 ? 'ui-state-hover' : ''}">
+						<h:outputText value="Certification" />
+					</h:panelGroup>
+					<h:panelGroup
+						styleClass="levelTitle ui-state-default ui-corner-all  
+                                  #{userWizard.currentLevel eq 5 ? 'ui-state-hover' : ''}">
+						<h:outputText value="Employment" />
+					</h:panelGroup>
+					<h:panelGroup
+						styleClass="levelTitle ui-state-default ui-corner-all  
+                                  #{userWizard.currentLevel eq 6 ? 'ui-state-hover' : ''}">
+						<h:outputText value="Confirmation" />
+					</h:panelGroup>
+				</h:panelGroup>
+			</f:facet>
+
+      
+			<pe:masterDetailLevel level="1">
+				<p:panel header="Personal Details">
+					<h:panelGrid columns="2" columnClasses="formColumn1,formColumn2">
+						<h:outputText value="Firstname: *" />
+						<p:inputText required="true" label="Firstname"
+							value="#{TaskMessenger.candinfoFirstName}" />
+						<h:outputText value="Lastname: *" />
+						<p:inputText required="true" label="Lastname"
+							value="#{TaskMessenger.candinfoLastName}" />
+						<h:outputText value="MiddleName: " />
+						<p:inputText value="#{TaskMessenger.candinfoMiddle}" />
+
+						<h:outputText value="Email: " />
+						<p:inputText value="#{TaskMessenger.candinfoEmail}" />
+					</h:panelGrid>
+				</p:panel>
+				<p:commandButton value="Next" process="masterDetail"
+					style="margin-top: 10px;" icon="ui-icon-arrowthick-1-e">
+					<pe:selectDetailLevel step="1" />
+				</p:commandButton>
+			
+			</pe:masterDetailLevel>
+			<pe:masterDetailLevel level="2">
+				<p:panel header="Contract Info">
+					<h:panelGrid columns="2" columnClasses="formColumn1,formColumn2">
+						<h:outputText value="Key Skill Set : " />
+						<p:inputTextarea id="sk8765"
+							value="#{TaskMessenger.candinfoSkills}" />
+							
+					     		
+					</h:panelGrid>
+				</p:panel>
+				<p:commandButton value="Back" style="margin-top: 10px;"
+					icon="ui-icon-arrowthick-1-w" process="@this" immediate="true">
+					<pe:selectDetailLevel step="-1" />
+				</p:commandButton>
+				<p:commandButton value="Next" process="masterDetail" actionListener="#{TaskMessenger.saveCandidateInfo}"
+				   style="margin-top: 10px;" icon="ui-icon-arrowthick-1-e">
+					<pe:selectDetailLevel step="1" />
+				</p:commandButton>
+				<p:commandButton value="Go to Save" process="masterDetail"
+					style="margin-top: 10px;" icon="ui-icon-arrowthickstop-1-e">
+					<pe:selectDetailLevel level="6" />
+				</p:commandButton>
+				
+			</pe:masterDetailLevel>
+
+			<pe:masterDetailLevel level="3">
+
+				<p:panel header="Education Details">
+					<h:panelGrid columns="2" columnClasses="formColumn1,formColumn2">
+						<h:outputText value="Degree :" />
+						<p:inputText value="#{TaskMessenger.degree}" />
+
+						<h:outputText value="School Name :" />
+						<p:inputText value="#{TaskMessenger.schoolName}" />
+
+						<h:outputText value="Major :" />
+						<p:inputText value="#{TaskMessenger.major}" />
+
+						<h:outputText value="Completion Year :" />
+						<p:calendar value="#{TaskMessenger.compYear}" navigator="true" pattern="MM/yyyy" yearRange="-100" showButtonPanel="true"/>  
+						
+						
+
+					</h:panelGrid>
+				</p:panel>
+				<!-- EDUCATION DATA TABLE                     EDUCATION DATA TABLE                          EDUCATION DATA TABLE-->
+
+				<p:panel header="Previous Education Additions">
+
+					<p:dataTable id="dtEducation" var="education"
+						value="#{TaskMessenger.empEdu}" paginator="true" rows="5">
+
+						<p:column headerText="Degree">
+							<h:outputText value="#{education.degree}" />
+						</p:column>
+						<p:column headerText="School Name">
+							<h:outputText value="#{education.schoolName}" />
+						</p:column>
+						<p:column headerText="Major">
+							<h:outputText value="#{education.major}" />
+						</p:column>
+						<p:column headerText="Completion Date">
+							<h:outputText value="#{education.compYear}" />
+						</p:column>
+					</p:dataTable>
+				</p:panel>
+
+				<p:commandButton value="Back" style="margin-top: 10px;"
+					icon="ui-icon-arrowthick-1-w" immediate="true">
+					<pe:selectDetailLevel step="-1" />
+				</p:commandButton>
+				<p:commandButton value="Go to Save" process="masterDetail"
+					style="margin-top: 10px;" icon="ui-icon-arrowthickstop-1-e">
+					<pe:selectDetailLevel level="6" />
+				</p:commandButton>
+				<p:commandButton value="Next" process="masterDetail" 
+					style="margin-top: 10px;" icon="ui-icon-arrowthick-1-e">
+					<pe:selectDetailLevel step="1" />
+				</p:commandButton>
+				<p:commandButton id="edujax" value="Add Education"
+					title="Add Education"
+					actionListener="#{TaskMessenger.saveEducationResume}"
+					style="margin-top:10px;" ajax="true"
+					onstart="document.forms['searchForm'].submit()" process="@this"
+					update="dtEducation" type="submit">
+				</p:commandButton>
+			</pe:masterDetailLevel>
+
+			<pe:masterDetailLevel level="4">
+				<p:panel header="Certification">
+					<h:panelGrid columns="2" columnClasses="formColumn1,formColumn2">
+						<h:outputText value="Certification :" />
+						<p:inputText value="#{TaskMessenger.certName}" />
+
+						<h:outputText value="Date of Certificate  :" />
+						<p:calendar value="#{TaskMessenger.certYear}" navigator="true" pattern="MM/yyyy" yearRange="-100" showButtonPanel="true"  />
+						
+						
+					</h:panelGrid>
+				</p:panel>
+				<!-- Certification DATA TABLE         Certification DATA TABLE       Certification DATA TABLE    Certification DATA TABLE     Certification DATA TABLE-->
+				<p:panel header="Previous Certfication Additions">
+
+					<p:dataTable id="dtCertificate" var="certificate"
+						value="#{TaskMessenger.cert}" paginator="true" rows="5">
+						<p:column headerText="Certification :">
+							<h:outputText value="#{certificate.certName}" />
+						</p:column>
+						<p:column headerText="Date of Certificate  :">
+							<h:outputText value="#{certificate.certYear}" />
+						</p:column>
+					</p:dataTable>
+				</p:panel>
+				<p:commandButton value="Back" style="margin-top: 10px;"
+					icon="ui-icon-arrowthick-1-w" process="@this" immediate="true">
+					<pe:selectDetailLevel step="-1" />
+				</p:commandButton>
+				<p:commandButton value="Go to Save" process="masterDetail"
+					style="margin-top: 10px;" icon="ui-icon-arrowthickstop-1-e">
+					<pe:selectDetailLevel level="6" />
+				</p:commandButton>
+				<p:commandButton value="Next" process="masterDetail"
+					style="margin-top: 10px;" icon="ui-icon-arrowthick-1-e">
+					<pe:selectDetailLevel step="1" />
+				</p:commandButton>
+				<p:commandButton id="certTTT" value="Add Certificate"
+					title="Add Certificate"
+					actionListener="#{TaskMessenger.saveCertResume}"
+					style="margin-top:10px;" ajax="true"
+					onstart="document.forms['searchForm'].submit()" process="@this"
+					update="dtCertificate" type="submit" />
+			</pe:masterDetailLevel>
+
+			<pe:masterDetailLevel level="5">
+				<p:panel header="Employment History">
+					<h:panelGrid columns="2" columnClasses="formColumn1,formColumn2">
+						<h:outputText value="Employment Company Name :" />
+						<p:inputText  value="#{TaskMessenger.compName}" />
+						<h:outputText value="Title :" />
+						<p:inputText  value="#{TaskMessenger.title}" />
+						<h:outputText value="From(month) :" />
+						<p:calendar  value="#{TaskMessenger.fromMonth}" navigator="true" pattern="MM/yyyy" yearRange="-100" showButtonPanel="true" /> 
+						<h:outputText value="To(year) :" />
+						<p:calendar  value="#{TaskMessenger.toYear}" navigator="true" pattern="MM/yyyy" yearRange="-100" showButtonPanel="true" />
+						<h:outputText value="Project Role :" />
+						<p:inputText  value="#{TaskMessenger.projectRole}" />
+						<h:outputText value="From(month) :" />
+						<p:calendar  value="#{TaskMessenger.projfromMonth}" navigator="true" pattern="MM/yyyy" yearRange="-100" showButtonPanel="true" />
+						<h:outputText value="To(year) :" />
+						<p:calendar  value="#{TaskMessenger.projtoYear}" navigator="true" pattern="MM/yyyy" yearRange="-100" showButtonPanel="true"  />
+						<h:outputText value="Project Description :" />
+						<p:inputTextarea value="#{TaskMessenger.projDescpt}" />
+					</h:panelGrid>
+				</p:panel>
+				<!-- EMPLOYMENT DATA TABLE           EMPLOYMENT DATA TABLE             EMPLOYMENT DATA TABLE-->
+				<p:panel header="Previous Employment Additions">
+
+					<p:dataTable id="dtEmployment" var="employment"
+						value="#{TaskMessenger.mainER}" paginator="true" rows="5">
+
+						<p:column headerText="Employment Company Name :">
+							<h:outputText value="#{employment.compName}" />
+						</p:column>
+
+						<p:column headerText="Title:">
+							<h:outputText value="#{employment.title}" />
+						</p:column>
+
+						<p:column headerText="From(month):">
+							<h:outputText value="#{employment.fromMonth}" />
+						</p:column>
+
+							<p:column headerText="To(year):">
+							<h:outputText value="#{employment.toYear}" />
+						</p:column>
+						<p:column headerText="Project Role:">
+							<h:outputText value="#{employment.projectRole}" />
+						</p:column>
+
+						<p:column headerText="From(month):">
+							<h:outputText value="#{employment.projfromMonth}" />
+						</p:column>
+
+						<p:column headerText="To(year):">
+							<h:outputText value="#{employment.projtoYear}" />
+						</p:column>
+
+						<p:column headerText="Proj Description:">
+							<h:outputText value="#{employment.projDescpt}" />
+						</p:column>
+
+					</p:dataTable>
+
+				</p:panel>
+
+				<p:commandButton value="Back" style="margin-top: 10px;"
+					icon="ui-icon-arrowthick-1-w" process="@this" immediate="true">
+					<pe:selectDetailLevel step="-1" />
+				</p:commandButton>
+				<p:commandButton value="Next" process="masterDetail"
+					style="margin-top: 10px;" icon="ui-icon-arrowthick-1-e">
+					<pe:selectDetailLevel step="1" />
+				</p:commandButton>
+
+				<p:commandButton id="employ" value="Add Employment"
+					title="Add Employment"
+					action="#{TaskMessenger.saveEmployResumeinfo}"
+					style="margin-top:10px;" ajax="true"
+					onstart="document.forms['searchForm'].submit()" process="@this"
+					update="dtEmployment" type="submit" />
+
+			</pe:masterDetailLevel>
+
+			<pe:masterDetailLevel level="6">
+			
+			 <p:panel header="Confirmation">
+					<h:panelGrid >
+									
+					<h:panelGrid columns="2"
+						columnClasses="formColumn1,formColumn2">
+					<f:facet name="header">Personal Info</f:facet>	
+					<p:dataTable id="dtPersonalInfo" var="personal"
+						value="#{TaskMessenger.cnd}">
+						<p:column headerText="First Name:" >
+						<h:outputText
+							value="#{personal.candinfoFirstName}" />
+					     </p:column>
+					     <p:column headerText="Last Name:" >						
+						<h:outputText
+							value="#{personal.candinfoLastName}" />
+						</p:column>	
+						<p:column headerText="Middle Name:" >						
+						<h:outputText
+							value="#{personal.candinfoMiddle}" />
+							</p:column>
+						<p:column headerText="Email:" >	
+						<h:outputText value="#{personal.candinfoEmail}" />
+						</p:column>
+						<p:column headerText="Skills:" >
+			        	<h:outputText
+							value="#{personal.candinfoSkills}" />
+						</p:column>	
+						</p:dataTable>	
+					</h:panelGrid>
+					
+					 <h:panelGrid columns="2"
+						columnClasses="formColumn1,formColumn2">
+					   <f:facet name="header">Education</f:facet>	
+					   	<p:dataTable id="Education" var="educated"
+						value="#{TaskMessenger.empEdu}">
+						<p:column headerText ="Degree"	>
+						<h:outputText value="#{educated.degree}" />
+						</p:column>
+						<p:column headerText ="School Name:"	>
+						<h:outputText value="#{educated.schoolName}" />
+						</p:column>
+						<p:column headerText ="Major:"	>
+						<h:outputText value="#{educated.major}" />
+						</p:column>
+						<p:column headerText ="Completion Year:"	>
+						<h:outputText value="#{educated.compYear}" pattern="MM/yyyy"/>
+						</p:column>
+					  </p:dataTable>
+					 </h:panelGrid>
+					 <h:panelGrid column="2"
+					 columnClasses="formColumn1, formColumn2">
+					 <f:facet name="header">Certs</f:facet>
+						<p:dataTable id="Certification" var="certs"
+						value="#{TaskMessenger.cert}">
+						<p:column headerText ="Certification"	>
+						<h:outputText value="#{certs.certName}" />
+						</p:column>
+						<p:column headerText ="Date of Cert"	>
+						<h:outputText value="#{certs.certYear}" pattern="MM/yyyy"/>
+						</p:column>	
+						</p:dataTable>	
+					 </h:panelGrid> 
+					 
+					 <h:panelGrid columns="2"
+						columnClasses="formColumn1,formColumn2">
+					 <f:facet name="header">Employment History</f:facet>
+					 	<p:dataTable id="EmploymentHistory" var="employment"
+						value="#{TaskMessenger.mainER}">
+						
+						<p:column headerText ="Employment Company Name :">
+						<h:outputText value="#{employment.compName}" />
+						</p:column>
+						<p:column headerText ="Title :">
+						<h:outputText value="#{employment.title}" />
+						</p:column>
+						<p:column headerText ="From(month):">
+						<h:outputText value="#{employment.fromMonth}" pattern="MM/yyyy"/>
+						</p:column>
+						<p:column headerText ="To(year):">
+						<h:outputText value="#{employment.toYear}" pattern="MM/yyyy"/>
+						</p:column>
+						<p:column headerText ="Project Role:">
+						<h:outputText value="#{employment.projectRole}" />
+						</p:column>
+						<p:column headerText ="From(month):">
+						<h:outputText value="#{employment.projfromMonth}" pattern="MM/yyyy" />
+						</p:column>
+						<p:column headerText ="To(year) :">
+						<h:outputText value="#{employment.projtoYear}" pattern="MM/yyyy"/>
+						</p:column>
+						<p:column headerText ="Project Description :">
+						<h:outputText value="#{employment.projDescpt}" />
+						</p:column>
+						
+						</p:dataTable>
+						</h:panelGrid>
+						
+					</h:panelGrid>
+				</p:panel> 
+				 
+
+				<p:commandButton value="Back" style="margin-top: 10px;"
+					icon="ui-icon-arrowthick-1-w" process="@this" immediate="true">
+					<pe:selectDetailLevel step="-1" />
+				</p:commandButton>
+				<p:commandButton value="Submit" process="masterDetail"
+					actionListener="#{TaskMessenger.save}" style="margin-top: 10px;"
+					icon="ui-icon-disk">
+					<pe:selectDetailLevel level="1" />
+				</p:commandButton>
+			</pe:masterDetailLevel>
+
+		</pe:masterDetail>
+	</h:form>
+
+</body>
+
+</ui:define>
+
+</ui:composition>
+</html>
+
+
+
+
+
+
+
+
+
+
+
